@@ -1,0 +1,3279 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Pandas &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2-Pandas/2_Pandas';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_Numpy.html">Numpy</a></li>
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F2-Pandas/2_Pandas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/2-Pandas/2_Pandas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-types">Pandas data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-series">Pandas series:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-dataframe">Pandas dataframe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-pandas-dataframe">Create a pandas DataFrame</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-a-dictionary">Create a Dataframe from a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-csv">Create a DataFrame from CSV.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-json">Create a DataFrame from JSON.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-accessing-in-pandas">Data accessing in Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-accessing">Column accessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing">Row accessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing-by-row-label-loc">Row accessing by Row Label -&gt; loc[]</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-loc">filtering with loc</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing-by-row-index-iloc">Row accessing by Row index -&gt; iloc[]</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#add-or-delete-data-with-pandas">Add or delete data with pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-columns-df-drop">Delete columns - df.drop()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-rows-df-drop">Delete rows - df.drop()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-columns">Add columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-an-index-to-the-data">adding an index to the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-rows">Add rows</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deal-with-null-data">Deal with Null Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-null-data-in-a-df">identify null data in a DF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-null-values">replace null values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-for-a-string">replace for a string</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-for-column-mean">replace for column mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-null-values-for-an-interpolation">replace null values for an interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-null-values">delete null values</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-conditions">Filtering with conditions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-multiple-conditions">Filtering with multiple conditions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#column-information">Column Information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#know-columns-data-type">know columns data type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-column-data-type">change the column data type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#know-column-main-statistics">know column main statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-last-registers-from-columns">see last registers from columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-memory-usage-of-each-column">see memory usage of each column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-records-in-a-column">count records in a column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-duplicates">delete duplicates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-duplicates-and-keep-last">DELETE DUPLICATES AND KEEP LAST!!!!!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-sorting-ascending">Column sorting (ascending)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-sorting-descending">Column sorting (descending)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by">Group by</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agg">.agg()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by-multiple-arguments">Group by(multiple arguments)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-concat">Merge &amp; Concat</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-dataframes-row-level">concatenate dataframes (row level)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-dataframes-column-level">concatenate dataframes (column level)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join-with-merge">inner join with .merge()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join-with-merge-different-col-names">inner join with .merge() -different col names-</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-with-merge-empty-records-in-key-col">left join with .merge() -empty records in key col-</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#join">Join</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join">inner join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outer-join">outer join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join">left join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#right-join">right join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-terms-of-performance-and-speed-what-is-better-merge-or-join-when-it-comes-to-big-data">In terms of performance and speed, what is better? Merge or Join? when it comes to big data.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-table">Pivot Table</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melt-or-unpivot-columns">Melt (or unpivot columns)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-functions-with-conditions">Apply functions with conditions</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pandas">
+<h1>Pandas<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h1>
+<p><em>Pandas was built from numpy</em></p>
+<p>Pandas Advantages:</p>
+<ul class="simple">
+<li><p>fast</p></li>
+<li><p>short code lines</p></li>
+<li><p>multiple file types</p></li>
+<li><p>smart alingnment</p></li>
+</ul>
+<p><strong>how to import?</strong>
+import pandas as pd</p>
+<section id="pandas-data-types">
+<h2>Pandas data types<a class="headerlink" href="#pandas-data-types" title="Permalink to this heading">#</a></h2>
+<p>Pandas has two data types:</p>
+<p><em>Pandas series</em>
+<em>Pandas DataFrame</em></p>
+<section id="pandas-series">
+<h3>Pandas series:<a class="headerlink" href="#pandas-series" title="Permalink to this heading">#</a></h3>
+<p><img alt="Picture title" src="../_images/image-20221120-170812.png" /></p>
+</section>
+<section id="pandas-dataframe">
+<h3>Pandas dataframe<a class="headerlink" href="#pandas-dataframe" title="Permalink to this heading">#</a></h3>
+<p><img alt="Picture title" src="../_images/image-20221120-170857.png" /></p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="create-a-pandas-dataframe">
+<h1>Create a pandas DataFrame<a class="headerlink" href="#create-a-pandas-dataframe" title="Permalink to this heading">#</a></h1>
+<p>To create a pandas DataFrame, you can use many methods:</p>
+<p><em>DataFrame from a dictionary:</em>
+<strong>pd.DataFrame(<em>dictionary_name</em>)</strong></p>
+<section id="create-a-dataframe-from-a-dictionary">
+<h2>Create a Dataframe from a Dictionary<a class="headerlink" href="#create-a-dataframe-from-a-dictionary" title="Permalink to this heading">#</a></h2>
+<p><img alt="Picture title" src="../_images/image-20221118-203351.png" /></p>
+<ul class="simple">
+<li><p>Use the pre-defined lists to create a dictionary called my_dict. There should be three key value pairs:</p></li>
+<li><ul>
+<li><p>key ‘country’ and value names.</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>key ‘drives_right’ and value dr.</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>key ‘cars_per_cap’ and value cpc.</p></li>
+</ul>
+</li>
+<li><p>Use pd.DataFrame() to turn your dict into a DataFrame called cars.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pre-defined lists</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;United States&#39;</span><span class="p">,</span> <span class="s1">&#39;Australia&#39;</span><span class="p">,</span> <span class="s1">&#39;Japan&#39;</span><span class="p">,</span> <span class="s1">&#39;India&#39;</span><span class="p">,</span> <span class="s1">&#39;Russia&#39;</span><span class="p">,</span> <span class="s1">&#39;Morocco&#39;</span><span class="p">,</span> <span class="s1">&#39;Egypt&#39;</span><span class="p">]</span>
+<span class="n">dr</span> <span class="o">=</span>  <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+<span class="n">cpc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">809</span><span class="p">,</span> <span class="mi">731</span><span class="p">,</span> <span class="mi">588</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
+
+<span class="c1"># Import pandas as pd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Create dictionary my_dict with three key:value pairs: my_dict</span>
+<span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;country&quot;</span><span class="p">:</span><span class="n">names</span><span class="p">,</span> <span class="s2">&quot;drives_right&quot;</span><span class="p">:</span><span class="n">dr</span><span class="p">,</span> <span class="s2">&quot;cars_per_cap&quot;</span><span class="p">:</span><span class="n">cpc</span><span class="p">}</span>
+
+<span class="c1"># Build a DataFrame cars from my_dict: cars</span>
+<span class="n">cars</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">my_dict</span><span class="p">)</span>
+
+<span class="c1"># Print cars</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">cpc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">809</span><span class="p">,</span> <span class="mi">731</span><span class="p">,</span> <span class="mi">588</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Import pandas as pd</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Create dictionary my_dict with three key:value pairs: my_dict</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;country&quot;</span><span class="p">:</span><span class="n">names</span><span class="p">,</span> <span class="s2">&quot;drives_right&quot;</span><span class="p">:</span><span class="n">dr</span><span class="p">,</span> <span class="s2">&quot;cars_per_cap&quot;</span><span class="p">:</span><span class="n">cpc</span><span class="p">}</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pandas&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, if you want to assign a row label you use the .index() method</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Definition of row_labels</span>
+<span class="n">row_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="s1">&#39;AUS&#39;</span><span class="p">,</span> <span class="s1">&#39;JPN&#39;</span><span class="p">,</span> <span class="s1">&#39;IN&#39;</span><span class="p">,</span> <span class="s1">&#39;RU&#39;</span><span class="p">,</span> <span class="s1">&#39;MOR&#39;</span><span class="p">,</span> <span class="s1">&#39;EG&#39;</span><span class="p">]</span>
+
+<span class="c1"># Specify row labels of cars</span>
+<span class="n">cars</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">row_labels</span>
+
+<span class="c1"># Print cars again</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country  drives_right  cars_per_cap
+US   United States          True           809
+AUS      Australia         False           731
+JPN          Japan         False           588
+IN           India         False            18
+RU          Russia          True           200
+MOR        Morocco          True            70
+EG           Egypt          True            45
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-dataframe-from-csv">
+<h2>Create a DataFrame from CSV.<a class="headerlink" href="#create-a-dataframe-from-csv" title="Permalink to this heading">#</a></h2>
+<p>To create a DataFrame from a CSV file, use pd.read_csv(“route”)</p>
+<p><em>example:</em>
+cars = pd.read_csv(“cars.csv”)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1">#import the bestsellers-with-categories.csv</span>
+<span class="n">mydata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestsellers-with-categories.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">#pd.read_csv() receives an argument sep=&quot;&quot;, which is the separator</span>
+<span class="c1">#pd.read_csv</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name  \
+0                        10-Day Green Smoothie Cleanse   
+1                                    11/22/63: A Novel   
+2              12 Rules for Life: An Antidote to Chaos   
+3                               1984 (Signet Classics)   
+4    5,000 Awesome Facts (About Everything!) (Natio...   
+..                                                 ...   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)   
+546  You Are a Badass: How to Stop Doubting Your Gr...   
+547  You Are a Badass: How to Stop Doubting Your Gr...   
+548  You Are a Badass: How to Stop Doubting Your Gr...   
+549  You Are a Badass: How to Stop Doubting Your Gr...   
+
+                       Author  User Rating  Reviews  Price  Year        Genre  
+0                    JJ Smith          4.7    17350      8  2016  Non Fiction  
+1                Stephen King          4.6     2052     22  2011      Fiction  
+2          Jordan B. Peterson          4.7    18979     15  2018  Non Fiction  
+3               George Orwell          4.7    21424      6  2017      Fiction  
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction  
+..                        ...          ...      ...    ...   ...          ...  
+545               Jeff Kinney          4.9     9413      8  2019      Fiction  
+546               Jen Sincero          4.7    14331      8  2016  Non Fiction  
+547               Jen Sincero          4.7    14331      8  2017  Non Fiction  
+548               Jen Sincero          4.7    14331      8  2018  Non Fiction  
+549               Jen Sincero          4.7    14331      8  2019  Non Fiction  
+
+[550 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-dataframe-from-json">
+<h2>Create a DataFrame from JSON.<a class="headerlink" href="#create-a-dataframe-from-json" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myjson_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">&quot;hpcharactersdataraw.json&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">myjson_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Name                                               Link  \
+0              Mrs. Abbott  https://www.hp-lexicon.org/character/abbott-fa...   
+1            Hannah Abbott  https://www.hp-lexicon.org/character/abbott-fa...   
+2            Abel Treetops  https://www.hp-lexicon.org/character/abel-tree...   
+3         Euan Abercrombie  https://www.hp-lexicon.org/character/abercromb...   
+4     Aberforth Dumbledore  https://www.hp-lexicon.org/character/dumbledor...   
+...                    ...                                                ...   
+1935        Georgi Zdravko  https://www.hp-lexicon.org/character/georgi-zd...   
+1936                Zograf       https://www.hp-lexicon.org/character/zograf/   
+1937                 Zonko        https://www.hp-lexicon.org/character/zonko/   
+1938     Valentina Vázquez  https://www.hp-lexicon.org/character/valentina...   
+1939         Zygmunt Budge  https://www.hp-lexicon.org/character/zygmunt-b...   
+
+                                                  Descr  Gender Species/Race  \
+0     Mrs. Abbott was the mother of Hannah Abbott, a...  Female        Witch   
+1     Hannah Abbott is a Hufflepuff student in Harry...  Female        Witch   
+2     Abel Treetops was a wizard from Cincinnati who...    Male       Wizard   
+3     Euan Abercrombie was a small boy with prominen...    Male       Wizard   
+4     Aberforth Dumbledore was a tall, thin, grumpy-...    Male       Wizard   
+...                                                 ...     ...          ...   
+1935  Georgi Zdravko played Keeper for the Bulgarian...    Male       Wizard   
+1936  Zograf played Keeper for the Bulgarian Nationa...     NaN       Wizard   
+1937  Founder(?) of Zonko’s Joke Shop. Possibly a re...     NaN      Unknown   
+1938  Valentina Vázquez was President of the Argenti...  Female        Witch   
+1939  Zygmunt Budge is considered to be one of the m...    Male       Wizard   
+
+            Blood                 School  \
+0     Muggle-born                Unknown   
+1      Half-blood  Hogwarts - Hufflepuff   
+2         Unknown                Unknown   
+3         Unknown  Hogwarts - Gryffindor   
+4      Half-blood     Hogwarts - Student   
+...           ...                    ...   
+1935      Unknown                Unknown   
+1936      Unknown                Unknown   
+1937      Unknown                Unknown   
+1938      Unknown                Unknown   
+1939      Unknown     Hogwarts - Student   
+
+                                         Profession  
+0                                           Unknown  
+1                    Landlady of the Leaky Cauldron  
+2                                           Unknown  
+3                                           Unknown  
+4                                            Barman  
+...                                             ...  
+1935                      Quidditch player (Seeker)  
+1936                      Quidditch player (Keeper)  
+1937                                        Unknown  
+1938  President of the Argentinian Council of Magic  
+1939    Potions Master, Potioneer, Inventor, Author  
+
+[1940 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-accessing-in-pandas">
+<h1>Data accessing in Pandas<a class="headerlink" href="#data-accessing-in-pandas" title="Permalink to this heading">#</a></h1>
+<section id="column-accessing">
+<h2>Column accessing<a class="headerlink" href="#column-accessing" title="Permalink to this heading">#</a></h2>
+<p>use <strong>DataFrame_Name[[“Column_name1”, “Column_name2”, …, “Column_name_n”]]</strong> to print the columns that you wish from the dataframe</p>
+<p><em>example:</em></p>
+<p>given the dataframe “cars”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country  drives_right  cars_per_cap
+US   United States          True           809
+AUS      Australia         False           731
+JPN          Japan         False           588
+IN           India         False            18
+RU          Russia          True           200
+MOR        Morocco          True            70
+EG           Egypt          True            45
+</pre></div>
+</div>
+</div>
+</div>
+<p>i would like to select the column <strong>country</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;country&quot;</span><span class="p">]]</span>  <span class="p">)</span>
+
+<span class="c1">#what would be this data type?</span>
+<span class="nb">print</span><span class="p">(</span>  <span class="nb">type</span><span class="p">(</span><span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;country&quot;</span><span class="p">]])</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country
+US   United States
+AUS      Australia
+JPN          Japan
+IN           India
+RU          Russia
+MOR        Morocco
+EG           Egypt
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let´s access the column <strong>country</strong> and the column <strong>cars_per_cap</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;cars_per_cap&quot;</span><span class="p">]]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country  cars_per_cap
+US   United States           809
+AUS      Australia           731
+JPN          Japan           588
+IN           India            18
+RU          Russia           200
+MOR        Morocco            70
+EG           Egypt            45
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="row-accessing">
+<h2>Row accessing<a class="headerlink" href="#row-accessing" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#say i want to access rows from 2nd to 4th</span>
+<span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  drives_right  cars_per_cap
+AUS  Australia         False           731
+JPN      Japan         False           588
+IN       India         False            18
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="row-accessing-by-row-label-loc">
+<h2>Row accessing by Row Label -&gt; loc[]<a class="headerlink" href="#row-accessing-by-row-label-loc" title="Permalink to this heading">#</a></h2>
+<p>loc[] is used to show data based on the <strong>row label</strong> &amp; the <strong>column label</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country  drives_right  cars_per_cap
+US   United States          True           809
+AUS      Australia         False           731
+JPN          Japan         False           588
+IN           India         False            18
+RU          Russia          True           200
+MOR        Morocco          True            70
+EG           Egypt          True            45
+</pre></div>
+</div>
+</div>
+</div>
+<p>given the previous database, print the row for <strong>Australia</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;AUS&quot;</span><span class="p">]]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  drives_right  cars_per_cap
+AUS  Australia         False           731
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can access multiple rows at the same time</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;AUS&quot;</span><span class="p">,</span> <span class="s2">&quot;JPN&quot;</span><span class="p">]]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  drives_right  cars_per_cap
+AUS  Australia         False           731
+JPN      Japan         False           588
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, you can access rows &amp; columns at the same time</p>
+<p><em>example:</em></p>
+<p><em>from the database <strong>cars</strong>, select the rows <strong>country</strong> and <strong>cars_per_cap</strong></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[</span><span class="s2">&quot;AUS&quot;</span><span class="p">,</span> <span class="s2">&quot;JPN&quot;</span><span class="p">]</span> <span class="p">,</span> <span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;cars_per_cap&quot;</span><span class="p">]</span> <span class="p">]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  cars_per_cap
+AUS  Australia           731
+JPN      Japan           588
+</pre></div>
+</div>
+</div>
+</div>
+<section id="filtering-with-loc">
+<h3>filtering with loc<a class="headerlink" href="#filtering-with-loc" title="Permalink to this heading">#</a></h3>
+<p>searching with loc given a condition, will give you a list of conditions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">condition</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">]]</span> <span class="o">==</span> <span class="s2">&quot;Japan&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="row-accessing-by-row-index-iloc">
+<h2>Row accessing by Row index -&gt; iloc[]<a class="headerlink" href="#row-accessing-by-row-index-iloc" title="Permalink to this heading">#</a></h2>
+<p>iloc[] is used to show data based on the <strong>row index</strong> &amp; the <strong>columns index</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           country  drives_right  cars_per_cap
+US   United States          True           809
+AUS      Australia         False           731
+JPN          Japan         False           588
+IN           India         False            18
+RU          Russia          True           200
+MOR        Morocco          True            70
+EG           Egypt          True            45
+</pre></div>
+</div>
+</div>
+</div>
+<p>given the previous database, print the row for <strong>Australia</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">]]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  drives_right  cars_per_cap
+AUS  Australia         False           731
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can access multiple rows at the same time</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  drives_right  cars_per_cap
+AUS  Australia         False           731
+JPN      Japan         False           588
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, you can access rows &amp; columns at the same time</p>
+<p><em>example:</em></p>
+<p><em>from the database <strong>cars</strong>, select the rows <strong>country</strong> and <strong>cars_per_cap</strong></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>  <span class="n">cars</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="p">]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       country  cars_per_cap
+AUS  Australia           731
+JPN      Japan           588
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="add-or-delete-data-with-pandas">
+<h1>Add or delete data with pandas<a class="headerlink" href="#add-or-delete-data-with-pandas" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1">#let&#39;s import the data</span>
+<span class="n">my_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestsellers-with-categories.csv&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">((</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            Name        Author  User Rating  Reviews  Price  \
+0  10-Day Green Smoothie Cleanse      JJ Smith          4.7    17350      8   
+1              11/22/63: A Novel  Stephen King          4.6     2052     22   
+
+   Year        Genre  
+0  2016  Non Fiction  
+1  2011      Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="delete-columns-df-drop">
+<h2>Delete columns - df.drop()<a class="headerlink" href="#delete-columns-df-drop" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#axis = 0 for rows &amp; axis = 1 for columns. Since i want to delete columns, i put axis = 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----modified output:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="n">my_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;Name&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="c1">#notice that the original dataset still contains the column</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----original data:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----modified output:-----
+         Author  User Rating  Reviews  Price  Year        Genre
+0      JJ Smith          4.7    17350      8  2016  Non Fiction
+1  Stephen King          4.6     2052     22  2011      Fiction
+-----original data:-----
+                            Name        Author  User Rating  Reviews  Price  \
+0  10-Day Green Smoothie Cleanse      JJ Smith          4.7    17350      8   
+1              11/22/63: A Novel  Stephen King          4.6     2052     22   
+
+   Year        Genre  
+0  2016  Non Fiction  
+1  2011      Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+<p>at this point, the column was deleted from the output but not from the <strong>original dataframe</strong>. in order for you to delete from the original dataset, use the ** inplace = TRUE ** argument</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#notice that the column has been removed now from the dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Author  User Rating  Reviews  Price  Year        Genre
+0      JJ Smith          4.7    17350      8  2016  Non Fiction
+1  Stephen King          4.6     2052     22  2011      Fiction
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="delete-rows-df-drop">
+<h2>Delete rows - df.drop()<a class="headerlink" href="#delete-rows-df-drop" title="Permalink to this heading">#</a></h2>
+<p>The process is the same than for deleting columns, the only difference is the argument <strong>axis = 0</strong> in this case</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----original dataframe:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1">#delete the first row</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----without first row:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----original dataframe:-----
+                     Author  User Rating  Reviews  Price  Year        Genre
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction
+1              Stephen King          4.6     2052     22  2011      Fiction
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction
+3             George Orwell          4.7    21424      6  2017      Fiction
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction
+-----without first row:-----
+                     Author  User Rating  Reviews  Price  Year        Genre
+1              Stephen King          4.6     2052     22  2011      Fiction
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction
+3             George Orwell          4.7    21424      6  2017      Fiction
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction
+5       George R. R. Martin          4.4    12643     11  2011      Fiction
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-columns">
+<h2>Add columns<a class="headerlink" href="#add-columns" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#to add a column to our dataframe, we must use np.nan</span>
+
+<span class="c1">#original dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1">#let&#39;s add a column called &quot;Country&quot;</span>
+<span class="c1">#nan is a no numeric value</span>
+<span class="n">my_data</span><span class="p">[</span><span class="s2">&quot;Country&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="c1">#print the modified dataframe</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                     Author  User Rating  Reviews  Price  Year        Genre
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction
+1              Stephen King          4.6     2052     22  2011      Fiction
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction
+3             George Orwell          4.7    21424      6  2017      Fiction
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction
+                     Author  User Rating  Reviews  Price  Year        Genre  \
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction   
+1              Stephen King          4.6     2052     22  2011      Fiction   
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction   
+3             George Orwell          4.7    21424      6  2017      Fiction   
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction   
+
+   Country  
+0      NaN  
+1      NaN  
+2      NaN  
+3      NaN  
+4      NaN  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-an-index-to-the-data">
+<h2>adding an index to the data<a class="headerlink" href="#adding-an-index-to-the-data" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#first count the rows in your DataFrame</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="n">my_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c1">#now create a numpy array with that length</span>
+
+<span class="n">arrayayay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">my_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1">#now create the column that will assign the item to the data and assign that array to it</span>
+<span class="c1">#(yes, you can assign numpy arrays as column values)</span>
+
+<span class="n">my_data</span><span class="p">[</span><span class="s2">&quot;indexx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrayayay</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>550
+                       Author  User Rating  Reviews  Price  Year        Genre  \
+0                    JJ Smith          4.7    17350      8  2016  Non Fiction   
+1                Stephen King          4.6     2052     22  2011      Fiction   
+2          Jordan B. Peterson          4.7    18979     15  2018  Non Fiction   
+3               George Orwell          4.7    21424      6  2017      Fiction   
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction   
+..                        ...          ...      ...    ...   ...          ...   
+545               Jeff Kinney          4.9     9413      8  2019      Fiction   
+546               Jen Sincero          4.7    14331      8  2016  Non Fiction   
+547               Jen Sincero          4.7    14331      8  2017  Non Fiction   
+548               Jen Sincero          4.7    14331      8  2018  Non Fiction   
+549               Jen Sincero          4.7    14331      8  2019  Non Fiction   
+
+     Country  indexx  
+0        NaN       0  
+1        NaN       1  
+2        NaN       2  
+3        NaN       3  
+4        NaN       4  
+..       ...     ...  
+545      NaN     545  
+546      NaN     546  
+547      NaN     547  
+548      NaN     548  
+549      NaN     549  
+
+[550 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-rows">
+<h2>Add rows<a class="headerlink" href="#add-rows" title="Permalink to this heading">#</a></h2>
+<p>To add rows in your dataframe, use <em>array</em>.append(row)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s append the data to the list</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">my_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                       Author  User Rating  Reviews  Price  Year        Genre  \
+0                    JJ Smith          4.7    17350      8  2016  Non Fiction   
+1                Stephen King          4.6     2052     22  2011      Fiction   
+2          Jordan B. Peterson          4.7    18979     15  2018  Non Fiction   
+3               George Orwell          4.7    21424      6  2017      Fiction   
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction   
+..                        ...          ...      ...    ...   ...          ...   
+545               Jeff Kinney          4.9     9413      8  2019      Fiction   
+546               Jen Sincero          4.7    14331      8  2016  Non Fiction   
+547               Jen Sincero          4.7    14331      8  2017  Non Fiction   
+548               Jen Sincero          4.7    14331      8  2018  Non Fiction   
+549               Jen Sincero          4.7    14331      8  2019  Non Fiction   
+
+     Country  indexx  
+0        NaN       0  
+1        NaN       1  
+2        NaN       2  
+3        NaN       3  
+4        NaN       4  
+..       ...     ...  
+545      NaN     545  
+546      NaN     546  
+547      NaN     547  
+548      NaN     548  
+549      NaN     549  
+
+[1100 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="deal-with-null-data">
+<h1>Deal with Null Data<a class="headerlink" href="#deal-with-null-data" title="Permalink to this heading">#</a></h1>
+<p>Let’s create a dataframe with null values</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">dicttt</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Col1&quot;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+    <span class="s2">&quot;Col2&quot;</span><span class="p">:[</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> 
+    <span class="s2">&quot;col3&quot;</span><span class="p">:[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dicttt</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Col1  Col2  col3
+0   1.0   4.0     a
+1   2.0   NaN     b
+2   3.0   6.0     c
+3   NaN   7.0  None
+</pre></div>
+</div>
+</div>
+</div>
+<section id="identify-null-data-in-a-df">
+<h2>identify null data in a DF<a class="headerlink" href="#identify-null-data-in-a-df" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#isnull() will help you to identify null values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Boolean dataframe: ------&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span> <span class="p">)</span>
+
+<span class="c1">#if you want to turn those values into numeric:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Numeric dataframe: ------&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">*</span><span class="mi">1</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----Boolean dataframe: ------
+    Col1   Col2   col3
+0  False  False  False
+1  False   True  False
+2  False  False  False
+3   True  False   True
+-----Numeric dataframe: ------
+   Col1  Col2  col3
+0     0     0     0
+1     0     1     0
+2     0     0     0
+3     1     0     1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="replace-null-values">
+<h2>replace null values<a class="headerlink" href="#replace-null-values" title="Permalink to this heading">#</a></h2>
+<section id="replace-for-a-string">
+<h3>replace for a string<a class="headerlink" href="#replace-for-a-string" title="Permalink to this heading">#</a></h3>
+<p>with <strong>.fillna()</strong> you can replace null values for whatever</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#i will replace null values for the word &quot;missing&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;missing&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Col1     Col2     col3
+0      1.0      4.0        a
+1      2.0  missing        b
+2      3.0      6.0        c
+3  missing      7.0  missing
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="replace-for-column-mean">
+<h3>replace for column mean<a class="headerlink" href="#replace-for-column-mean" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Col1      Col2  col3
+0   1.0  4.000000     a
+1   2.0  5.666667     b
+2   3.0  6.000000     c
+3   2.0  7.000000  None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="replace-null-values-for-an-interpolation">
+<h2>replace null values for an interpolation<a class="headerlink" href="#replace-null-values-for-an-interpolation" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Col1  Col2  col3
+0   1.0   4.0     a
+1   2.0   5.0     b
+2   3.0   6.0     c
+3   3.0   7.0  None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="delete-null-values">
+<h2>delete null values<a class="headerlink" href="#delete-null-values" title="Permalink to this heading">#</a></h2>
+<p>this will <strong>delete the entire row</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Col1  Col2 col3
+0   1.0   4.0    a
+2   3.0   6.0    c
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="filtering-with-conditions">
+<h1>Filtering with conditions<a class="headerlink" href="#filtering-with-conditions" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s import the dataset</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestsellers-with-categories.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">#first 5 rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                Name  \
+0                      10-Day Green Smoothie Cleanse   
+1                                  11/22/63: A Novel   
+2            12 Rules for Life: An Antidote to Chaos   
+3                             1984 (Signet Classics)   
+4  5,000 Awesome Facts (About Everything!) (Natio...   
+
+                     Author  User Rating  Reviews  Price  Year        Genre  
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction  
+1              Stephen King          4.6     2052     22  2011      Fiction  
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction  
+3             George Orwell          4.7    21424      6  2017      Fiction  
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Filtering structure is:</strong></p>
+<p><strong>ColumnName &gt; 3</strong>
+DataFrame[ DataFrame[“ColumnName”] &gt; 3 ]</p>
+<p><strong>ColumnName = 5</strong>
+DataFrame[ DataFrame[“ColumnName”] == 5 ]</p>
+<p><em>example:</em></p>
+<p>filter those with rating greater than or equal to 4.8</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="p">[</span>  <span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">4.8</span>  <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name  \
+4    5,000 Awesome Facts (About Everything!) (Natio...   
+19                                  Alexander Hamilton   
+30   Barefoot Contessa Foolproof: Recipes You Can T...   
+32                                            Becoming   
+33                                            Becoming   
+..                                                 ...   
+541                                             Wonder   
+542                                             Wonder   
+543                                             Wonder   
+544                                             Wonder   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)   
+
+                       Author  User Rating  Reviews  Price  Year        Genre  
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction  
+19                Ron Chernow          4.8     9198     13  2016  Non Fiction  
+30                 Ina Garten          4.8     1296     24  2012  Non Fiction  
+32             Michelle Obama          4.8    61133     11  2018  Non Fiction  
+33             Michelle Obama          4.8    61133     11  2019  Non Fiction  
+..                        ...          ...      ...    ...   ...          ...  
+541             R. J. Palacio          4.8    21625      9  2014      Fiction  
+542             R. J. Palacio          4.8    21625      9  2015      Fiction  
+543             R. J. Palacio          4.8    21625      9  2016      Fiction  
+544             R. J. Palacio          4.8    21625      9  2017      Fiction  
+545               Jeff Kinney          4.9     9413      8  2019      Fiction  
+
+[179 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>example</em></p>
+<p>filter those which Genre is Fiction</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="p">[</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Genre&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Fiction&quot;</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name               Author  \
+1                                    11/22/63: A Novel         Stephen King   
+3                               1984 (Signet Classics)        George Orwell   
+5        A Dance with Dragons (A Song of Ice and Fire)  George R. R. Martin   
+6    A Game of Thrones / A Clash of Kings / A Storm...  George R. R. Martin   
+7                       A Gentleman in Moscow: A Novel          Amor Towles   
+..                                                 ...                  ...   
+541                                             Wonder        R. J. Palacio   
+542                                             Wonder        R. J. Palacio   
+543                                             Wonder        R. J. Palacio   
+544                                             Wonder        R. J. Palacio   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)          Jeff Kinney   
+
+     User Rating  Reviews  Price  Year    Genre  
+1            4.6     2052     22  2011  Fiction  
+3            4.7    21424      6  2017  Fiction  
+5            4.4    12643     11  2011  Fiction  
+6            4.7    19735     30  2014  Fiction  
+7            4.7    19699     15  2017  Fiction  
+..           ...      ...    ...   ...      ...  
+541          4.8    21625      9  2014  Fiction  
+542          4.8    21625      9  2015  Fiction  
+543          4.8    21625      9  2016  Fiction  
+544          4.8    21625      9  2017  Fiction  
+545          4.9     9413      8  2019  Fiction  
+
+[240 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="filtering-with-multiple-conditions">
+<h2>Filtering with multiple conditions<a class="headerlink" href="#filtering-with-multiple-conditions" title="Permalink to this heading">#</a></h2>
+<p>For multiple conditions, it is recommended to <strong>assign the conditions to an object</strong></p>
+<p><em>example:</em>
+print those which <strong>genre is fiction</strong> and were <strong>published after 2018</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Fiction</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Genre&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Fiction&quot;</span>
+<span class="n">Publishedafter2018</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2018</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span> <span class="n">Fiction</span> <span class="o">&amp;</span> <span class="n">Publishedafter2018</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name                 Author  \
+13                    A Wrinkle in Time (Time Quintet)      Madeleine L&#39;Engle   
+41            Brown Bear, Brown Bear, What Do You See?        Bill Martin Jr.   
+53       Crazy Rich Asians (Crazy Rich Asians Trilogy)             Kevin Kwan   
+66                      Dear Zoo: A Lift-the-Flap Book           Rod Campbell   
+81   Dog Man and Cat Kid: From the Creator of Capta...             Dav Pilkey   
+83   Dog Man: Brawl of the Wild: From the Creator o...             Dav Pilkey   
+84   Dog Man: Brawl of the Wild: From the Creator o...             Dav Pilkey   
+85   Dog Man: Fetch-22: From the Creator of Captain...             Dav Pilkey   
+86   Dog Man: For Whom the Ball Rolls: From the Cre...             Dav Pilkey   
+87   Dog Man: Lord of the Fleas: From the Creator o...             Dav Pilkey   
+101                                     Fahrenheit 451           Ray Bradbury   
+126                               Giraffes Can&#39;t Dance          Giles Andreae   
+127                               Giraffes Can&#39;t Dance          Giles Andreae   
+144                                     Goodnight Moon    Margaret Wise Brown   
+145                                     Goodnight Moon    Margaret Wise Brown   
+155  Harry Potter and the Goblet of Fire: The Illus...          J. K. Rowling   
+179                       If Animals Kissed Good Night      Ann Whitford Paul   
+207  Last Week Tonight with John Oliver Presents A ...             Jill Twiss   
+220                            Little Fires Everywhere             Celeste Ng   
+251                          Oh, the Places You&#39;ll Go!              Dr. Seuss   
+252                          Oh, the Places You&#39;ll Go!              Dr. Seuss   
+266             Player&#39;s Handbook (Dungeons &amp; Dragons)       Wizards RPG Team   
+267             Player&#39;s Handbook (Dungeons &amp; Dragons)       Wizards RPG Team   
+287                          Ready Player One: A Novel           Ernest Cline   
+303             Strange Planet (Strange Planet Series)         Nathan W. Pyle   
+397                             The Guardians: A Novel           John Grisham   
+401                                    The Hate U Give           Angie Thomas   
+435        The Meltdown (Diary of a Wimpy Kid Book 13)            Jeff Kinney   
+452                                 The Pout-Pout Fish         Deborah Diesen   
+454                  The President Is Missing: A Novel        James Patterson   
+462                                 The Silent Patient       Alex Michaelides   
+481                        The Very Hungry Caterpillar             Eric Carle   
+482                        The Very Hungry Caterpillar             Eric Carle   
+488                   The Wonderful Things You Will Be  Emily Winfield Martin   
+489                   The Wonderful Things You Will Be  Emily Winfield Martin   
+490                                   The Wonky Donkey            Craig Smith   
+491                                   The Wonky Donkey            Craig Smith   
+509                              To Kill a Mockingbird             Harper Lee   
+529  What Should Danny Do? (The Power to Choose Ser...              Adir Levy   
+534                            Where the Crawdads Sing            Delia Owens   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)            Jeff Kinney   
+
+     User Rating  Reviews  Price  Year    Genre  
+13           4.5     5153      5  2018  Fiction  
+41           4.9    14344      5  2019  Fiction  
+53           4.3     6143      8  2018  Fiction  
+66           4.8    10922      5  2018  Fiction  
+81           4.9     5062      6  2018  Fiction  
+83           4.9     7235      4  2018  Fiction  
+84           4.9     7235      4  2019  Fiction  
+85           4.9    12619      8  2019  Fiction  
+86           4.9     9089      8  2019  Fiction  
+87           4.9     5470      6  2018  Fiction  
+101          4.6    10721      8  2018  Fiction  
+126          4.8    14038      4  2018  Fiction  
+127          4.8    14038      4  2019  Fiction  
+144          4.8     8837      5  2018  Fiction  
+145          4.8     8837      5  2019  Fiction  
+155          4.9     7758     18  2019  Fiction  
+179          4.8    16643      4  2019  Fiction  
+207          4.9    11881     13  2018  Fiction  
+220          4.5    25706     12  2018  Fiction  
+251          4.9    21834      8  2018  Fiction  
+252          4.9    21834      8  2019  Fiction  
+266          4.8    16990     27  2018  Fiction  
+267          4.8    16990     27  2019  Fiction  
+287          4.6    22536     12  2018  Fiction  
+303          4.9     9382      6  2019  Fiction  
+397          4.5    13609     14  2019  Fiction  
+401          4.8     9947     11  2018  Fiction  
+435          4.8     5898      8  2018  Fiction  
+452          4.8     9784      5  2018  Fiction  
+454          4.3    10191     18  2018  Fiction  
+462          4.5    27536     14  2019  Fiction  
+481          4.9    19546      5  2018  Fiction  
+482          4.9    19546      5  2019  Fiction  
+488          4.9     8842     10  2018  Fiction  
+489          4.9     8842     10  2019  Fiction  
+490          4.8    30183      4  2018  Fiction  
+491          4.8    30183      4  2019  Fiction  
+509          4.8    26234      7  2019  Fiction  
+529          4.8     8170     13  2019  Fiction  
+534          4.8    87841     15  2019  Fiction  
+545          4.9     9413      8  2019  Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="column-information">
+<h1>Column Information<a class="headerlink" href="#column-information" title="Permalink to this heading">#</a></h1>
+<section id="know-columns-data-type">
+<h2>know columns data type<a class="headerlink" href="#know-columns-data-type" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .info() will tell you the data type of each column</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 550 entries, 0 to 549
+Data columns (total 7 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   Name         550 non-null    object 
+ 1   Author       550 non-null    object 
+ 2   User Rating  550 non-null    float64
+ 3   Reviews      550 non-null    int64  
+ 4   Price        550 non-null    int64  
+ 5   Year         550 non-null    int64  
+ 6   Genre        550 non-null    object 
+dtypes: float64(1), int64(3), object(3)
+memory usage: 30.2+ KB
+None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="change-the-column-data-type">
+<h2>change the column data type<a class="headerlink" href="#change-the-column-data-type" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#choose the column and use .astype() to select your desired data type</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Author&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Author&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Genre&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Genre&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+
+<span class="c1">#and i will check the data type again</span>
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 550 entries, 0 to 549
+Data columns (total 7 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   Name         550 non-null    string 
+ 1   Author       550 non-null    string 
+ 2   User Rating  550 non-null    float64
+ 3   Reviews      550 non-null    int64  
+ 4   Price        550 non-null    int64  
+ 5   Year         550 non-null    int64  
+ 6   Genre        550 non-null    string 
+dtypes: float64(1), int64(3), string(3)
+memory usage: 30.2 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="know-column-main-statistics">
+<h2>know column main statistics<a class="headerlink" href="#know-column-main-statistics" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .describe() will tell you main descriptive variables</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       User Rating       Reviews       Price         Year
+count   550.000000    550.000000  550.000000   550.000000
+mean      4.618364  11953.281818   13.100000  2014.000000
+std       0.226980  11731.132017   10.842262     3.165156
+min       3.300000     37.000000    0.000000  2009.000000
+25%       4.500000   4058.000000    7.000000  2011.000000
+50%       4.700000   8580.000000   11.000000  2014.000000
+75%       4.800000  17253.250000   16.000000  2017.000000
+max       4.900000  87841.000000  105.000000  2019.000000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="see-last-registers-from-columns">
+<h2>see last registers from columns<a class="headerlink" href="#see-last-registers-from-columns" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .tail() will show you the last n registers. n is the argument</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name       Author  \
+548  You Are a Badass: How to Stop Doubting Your Gr...  Jen Sincero   
+549  You Are a Badass: How to Stop Doubting Your Gr...  Jen Sincero   
+
+     User Rating  Reviews  Price  Year        Genre  
+548          4.7    14331      8  2018  Non Fiction  
+549          4.7    14331      8  2019  Non Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="see-memory-usage-of-each-column">
+<h2>see memory usage of each column<a class="headerlink" href="#see-memory-usage-of-each-column" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .memory_usage(deep = True)  #the deep argument is importnt to do it column based</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index            128
+Name           59737
+Author         39078
+User Rating     4400
+Reviews         4400
+Price           4400
+Year            4400
+Genre          36440
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="count-records-in-a-column">
+<h2>count records in a column<a class="headerlink" href="#count-records-in-a-column" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#count records from each author in a column</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;Author&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jeff Kinney                           12
+Suzanne Collins                       11
+Rick Riordan                          11
+Gary Chapman                          11
+American Psychological Association    10
+                                      ..
+The Washington Post                    1
+Raina Telgemeier                       1
+Ken Follett                            1
+Charles Duhigg                         1
+David Grann                            1
+Name: Author, Length: 248, dtype: Int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="delete-duplicates">
+<h2>delete duplicates<a class="headerlink" href="#delete-duplicates" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s get all the unique values for the user ratings</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      4.7
+1      4.6
+4      4.8
+5      4.4
+13     4.5
+22     3.9
+24     4.3
+27     4.2
+40     4.9
+106    3.8
+132    3.6
+135    4.0
+182    4.1
+353    3.3
+Name: User Rating, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="delete-duplicates-and-keep-last">
+<h2>DELETE DUPLICATES AND KEEP LAST!!!!!<a class="headerlink" href="#delete-duplicates-and-keep-last" title="Permalink to this heading">#</a></h2>
+<p>this one will delete the column duplicates but will keep the last.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#show the last book that got a unique rating</span>
+<span class="c1">#THE ARGUMENT keep=&quot;last&quot; will make you to keep the last record on this one.</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>107    3.8
+132    3.6
+353    3.3
+364    4.0
+383    4.1
+393    3.9
+520    4.3
+536    4.6
+537    4.4
+538    4.5
+539    4.2
+544    4.8
+545    4.9
+549    4.7
+Name: User Rating, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="column-sorting-ascending">
+<h2>Column sorting (ascending)<a class="headerlink" href="#column-sorting-ascending" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s sort ascendingly by user rating</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;User Rating&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name                Author  \
+353                                 The Casual Vacancy          J.K. Rowling   
+132                         Go Set a Watchman: A Novel            Harper Lee   
+106  Fifty Shades of Grey: Book One of the Fifty Sh...             E L James   
+107  Fifty Shades of Grey: Book One of the Fifty Sh...             E L James   
+393  The Goldfinch: A Novel (Pulitzer Prize for Fic...           Donna Tartt   
+..                                                 ...                   ...   
+41            Brown Bear, Brown Bear, What Do You See?       Bill Martin Jr.   
+40            Brown Bear, Brown Bear, What Do You See?       Bill Martin Jr.   
+247                          Oh, the Places You&#39;ll Go!             Dr. Seuss   
+146  Goodnight, Goodnight Construction Site (Hardco...  Sherri Duskey Rinker   
+249                          Oh, the Places You&#39;ll Go!             Dr. Seuss   
+
+     User Rating  Reviews  Price  Year    Genre  
+353          3.3     9372     12  2012  Fiction  
+132          3.6    14982     19  2015  Fiction  
+106          3.8    47265     14  2012  Fiction  
+107          3.8    47265     14  2013  Fiction  
+393          3.9    33844     20  2014  Fiction  
+..           ...      ...    ...   ...      ...  
+41           4.9    14344      5  2019  Fiction  
+40           4.9    14344      5  2017  Fiction  
+247          4.9    21834      8  2014  Fiction  
+146          4.9     7038      7  2012  Fiction  
+249          4.9    21834      8  2016  Fiction  
+
+[550 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="column-sorting-descending">
+<h2>Column sorting (descending)<a class="headerlink" href="#column-sorting-descending" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s sort descendingly by user rating</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;User Rating&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name         Author  \
+431                                 The Magnolia Story    Chip Gaines   
+87   Dog Man: Lord of the Fleas: From the Creator o...     Dav Pilkey   
+85   Dog Man: Fetch-22: From the Creator of Captain...     Dav Pilkey   
+84   Dog Man: Brawl of the Wild: From the Creator o...     Dav Pilkey   
+83   Dog Man: Brawl of the Wild: From the Creator o...     Dav Pilkey   
+..                                                 ...            ...   
+22                                           Allegiant  Veronica Roth   
+107  Fifty Shades of Grey: Book One of the Fifty Sh...      E L James   
+106  Fifty Shades of Grey: Book One of the Fifty Sh...      E L James   
+132                         Go Set a Watchman: A Novel     Harper Lee   
+353                                 The Casual Vacancy   J.K. Rowling   
+
+     User Rating  Reviews  Price  Year        Genre  
+431          4.9     7861      5  2016  Non Fiction  
+87           4.9     5470      6  2018      Fiction  
+85           4.9    12619      8  2019      Fiction  
+84           4.9     7235      4  2019      Fiction  
+83           4.9     7235      4  2018      Fiction  
+..           ...      ...    ...   ...          ...  
+22           3.9     6310     13  2013      Fiction  
+107          3.8    47265     14  2013      Fiction  
+106          3.8    47265     14  2012      Fiction  
+132          3.6    14982     19  2015      Fiction  
+353          3.3     9372     12  2012      Fiction  
+
+[550 rows x 7 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="group-by">
+<h1>Group by<a class="headerlink" href="#group-by" title="Permalink to this heading">#</a></h1>
+<p>Given a dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#this is my dataset</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                Name  \
+0                      10-Day Green Smoothie Cleanse   
+1                                  11/22/63: A Novel   
+2            12 Rules for Life: An Antidote to Chaos   
+3                             1984 (Signet Classics)   
+4  5,000 Awesome Facts (About Everything!) (Natio...   
+
+                     Author  User Rating  Reviews  Price  Year        Genre  
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction  
+1              Stephen King          4.6     2052     22  2011      Fiction  
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction  
+3             George Orwell          4.7    21424      6  2017      Fiction  
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+<p>let’s group by the author and count the records in the columns</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            Name  User Rating  Reviews  Price  Year  Genre
+Author                                                                    
+Abraham Verghese               2            2        2      2     2      2
+Adam Gasiewski                 1            1        1      1     1      1
+Adam Mansbach                  1            1        1      1     1      1
+Adir Levy                      1            1        1      1     1      1
+Admiral William H. McRaven     1            1        1      1     1      1
+...                          ...          ...      ...    ...   ...    ...
+Walter Isaacson                3            3        3      3     3      3
+William Davis                  2            2        2      2     2      2
+William P. Young               2            2        2      2     2      2
+Wizards RPG Team               3            3        3      3     3      3
+Zhi Gang Sha                   2            2        2      2     2      2
+
+[248 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Group by author and show the median of the data in the rest of the columns</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            User Rating  Reviews  Price    Year
+Author                                                         
+Abraham Verghese                    4.6   4866.0   11.0  2010.5
+Adam Gasiewski                      4.4   3113.0    6.0  2017.0
+Adam Mansbach                       4.8   9568.0    9.0  2011.0
+Adir Levy                           4.8   8170.0   13.0  2019.0
+Admiral William H. McRaven          4.7  10199.0   11.0  2017.0
+...                                 ...      ...    ...     ...
+Walter Isaacson                     4.6   7827.0   20.0  2012.0
+William Davis                       4.4   7497.0    6.0  2012.5
+William P. Young                    4.6  19720.0    8.0  2013.0
+Wizards RPG Team                    4.8  16990.0   27.0  2018.0
+Zhi Gang Sha                        4.6    128.5   11.5  2011.0
+
+[248 rows x 4 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>La columna Author, en los casos anteriores, pasa a ser el índice.</strong></p>
+<p>Podemos usar loc y acceder a un dato específico del DataFrame. Agrupar por autor y mostrar la suma de los valores de las demás columnas para William Davis</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;William Davis&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>User Rating        8.8
+Reviews        14994.0
+Price             12.0
+Year            4025.0
+Name: William Davis, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Agrupar por author y mostrar la suma de los valores de las demás columnas. Colocar los índices que el DataFrame trae por defecto</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                         Author  User Rating  Reviews  Price  Year
+0              Abraham Verghese          9.2     9732     22  4021
+1                Adam Gasiewski          4.4     3113      6  2017
+2                 Adam Mansbach          4.8     9568      9  2011
+3                     Adir Levy          4.8     8170     13  2019
+4    Admiral William H. McRaven          4.7    10199     11  2017
+..                          ...          ...      ...    ...   ...
+243             Walter Isaacson         13.7    18668     61  6040
+244               William Davis          8.8    14994     12  4025
+245            William P. Young          9.2    39440     16  4026
+246            Wizards RPG Team         14.4    50970     81  6054
+247                Zhi Gang Sha          9.2      257     23  4022
+
+[248 rows x 5 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The function agg() allows to apply multiple functions to the dataframe once it is grouped by a specific column.</p>
+<p>Group by Author y show the minimum &amp; maximum of the other colums</p>
+<section id="agg">
+<h2>.agg()<a class="headerlink" href="#agg" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">])</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                         Name  \
+                                                                          min   
+Author                                                                          
+Abraham Verghese                                            Cutting for Stone   
+Adam Gasiewski              Milk and Vine: Inspirational Quotes From Class...   
+Adam Mansbach                                            Go the F**k to Sleep   
+Adir Levy                   What Should Danny Do? (The Power to Choose Ser...   
+Admiral William H. McRaven  Make Your Bed: Little Things That Can Change Y...   
+...                                                                       ...   
+Walter Isaacson                                             Leonardo da Vinci   
+William Davis               Wheat Belly: Lose the Wheat, Lose the Weight, ...   
+William P. Young                  The Shack: Where Tragedy Confronts Eternity   
+Wizards RPG Team                       Player&#39;s Handbook (Dungeons &amp; Dragons)   
+Zhi Gang Sha                Divine Soul Mind Body Healing and Transmission...   
+
+                                                                               \
+                                                                          max   
+Author                                                                          
+Abraham Verghese                                            Cutting for Stone   
+Adam Gasiewski              Milk and Vine: Inspirational Quotes From Class...   
+Adam Mansbach                                            Go the F**k to Sleep   
+Adir Levy                   What Should Danny Do? (The Power to Choose Ser...   
+Admiral William H. McRaven  Make Your Bed: Little Things That Can Change Y...   
+...                                                                       ...   
+Walter Isaacson                                                    Steve Jobs   
+William Davis               Wheat Belly: Lose the Wheat, Lose the Weight, ...   
+William P. Young                  The Shack: Where Tragedy Confronts Eternity   
+Wizards RPG Team                       Player&#39;s Handbook (Dungeons &amp; Dragons)   
+Zhi Gang Sha                Soul Healing Miracles: Ancient and New Sacred ...   
+
+                           User Rating      Reviews        Price      Year  \
+                                   min  max     min    max   min max   min   
+Author                                                                       
+Abraham Verghese                   4.6  4.6    4866   4866    11  11  2010   
+Adam Gasiewski                     4.4  4.4    3113   3113     6   6  2017   
+Adam Mansbach                      4.8  4.8    9568   9568     9   9  2011   
+Adir Levy                          4.8  4.8    8170   8170    13  13  2019   
+Admiral William H. McRaven         4.7  4.7   10199  10199    11  11  2017   
+...                                ...  ...     ...    ...   ...  ..   ...   
+Walter Isaacson                    4.5  4.6    3014   7827    20  21  2011   
+William Davis                      4.4  4.4    7497   7497     6   6  2012   
+William P. Young                   4.6  4.6   19720  19720     8   8  2009   
+Wizards RPG Team                   4.8  4.8   16990  16990    27  27  2017   
+Zhi Gang Sha                       4.6  4.6      37    220     6  17  2009   
+
+                                        Genre               
+                             max          min          max  
+Author                                                      
+Abraham Verghese            2011      Fiction      Fiction  
+Adam Gasiewski              2017  Non Fiction  Non Fiction  
+Adam Mansbach               2011      Fiction      Fiction  
+Adir Levy                   2019      Fiction      Fiction  
+Admiral William H. McRaven  2017  Non Fiction  Non Fiction  
+...                          ...          ...          ...  
+Walter Isaacson             2017  Non Fiction  Non Fiction  
+William Davis               2013  Non Fiction  Non Fiction  
+William P. Young            2017      Fiction      Fiction  
+Wizards RPG Team            2019      Fiction      Fiction  
+Zhi Gang Sha                2013  Non Fiction  Non Fiction  
+
+[248 rows x 12 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Group by author and get the minimum &amp; maximum from the column “Reviews” and add the values of the column “User Rating”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;Reviews&quot;</span><span class="p">:[</span><span class="s2">&quot;min&quot;</span><span class="p">,</span><span class="s2">&quot;max&quot;</span><span class="p">],</span> <span class="s2">&quot;User Rating&quot;</span><span class="p">:</span><span class="s2">&quot;sum&quot;</span><span class="p">}</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Reviews        User Rating
+                               min    max         sum
+Author                                               
+Abraham Verghese              4866   4866         9.2
+Adam Gasiewski                3113   3113         4.4
+Adam Mansbach                 9568   9568         4.8
+Adir Levy                     8170   8170         4.8
+Admiral William H. McRaven   10199  10199         4.7
+...                            ...    ...         ...
+Walter Isaacson               3014   7827        13.7
+William Davis                 7497   7497         8.8
+William P. Young             19720  19720         9.2
+Wizards RPG Team             16990  16990        14.4
+Zhi Gang Sha                    37    220         9.2
+
+[248 rows x 3 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="group-by-multiple-arguments">
+<h2>Group by(multiple arguments)<a class="headerlink" href="#group-by-multiple-arguments" title="Permalink to this heading">#</a></h2>
+<p><strong>Group by can also receive multiple argument</strong></p>
+<p>Group by “Author” &amp; “Year” &amp; count the values from the other columns</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Author&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                       Name  User Rating  Reviews  Price  Genre
+Author           Year                                          
+Abraham Verghese 2010     1            1        1      1      1
+                 2011     1            1        1      1      1
+Adam Gasiewski   2017     1            1        1      1      1
+Adam Mansbach    2011     1            1        1      1      1
+Adir Levy        2019     1            1        1      1      1
+...                     ...          ...      ...    ...    ...
+Wizards RPG Team 2017     1            1        1      1      1
+                 2018     1            1        1      1      1
+                 2019     1            1        1      1      1
+Zhi Gang Sha     2009     1            1        1      1      1
+                 2013     1            1        1      1      1
+
+[493 rows x 5 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="merge-concat">
+<h1>Merge &amp; Concat<a class="headerlink" href="#merge-concat" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#let&#39;s create a new dataframe</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;A&quot;</span><span class="p">:[</span><span class="s2">&quot;A0&quot;</span><span class="p">,</span><span class="s2">&quot;A1&quot;</span><span class="p">,</span><span class="s2">&quot;A2&quot;</span><span class="p">,</span><span class="s2">&quot;A3&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;B&quot;</span><span class="p">:[</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span><span class="s2">&quot;B1&quot;</span><span class="p">,</span><span class="s2">&quot;B2&quot;</span><span class="p">,</span><span class="s2">&quot;B3&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">:[</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span><span class="s2">&quot;C3&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:[</span><span class="s2">&quot;D0&quot;</span><span class="p">,</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span><span class="s2">&quot;D3&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;A&#39;</span><span class="p">:[</span><span class="s1">&#39;A4&#39;</span><span class="p">,</span> <span class="s1">&#39;A5&#39;</span><span class="p">,</span> <span class="s1">&#39;A6&#39;</span><span class="p">,</span><span class="s1">&#39;A7&#39;</span><span class="p">],</span>
+	    <span class="s1">&#39;B&#39;</span><span class="p">:[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">,</span><span class="s1">&#39;B7&#39;</span><span class="p">],</span>
+	    <span class="s1">&#39;C&#39;</span><span class="p">:[</span><span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;C5&#39;</span><span class="p">,</span> <span class="s1">&#39;C6&#39;</span><span class="p">,</span><span class="s1">&#39;C7&#39;</span><span class="p">],</span>
+	    <span class="s1">&#39;D&#39;</span><span class="p">:[</span><span class="s1">&#39;D4&#39;</span><span class="p">,</span> <span class="s1">&#39;D5&#39;</span><span class="p">,</span> <span class="s1">&#39;D6&#39;</span><span class="p">,</span><span class="s1">&#39;D7&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Database1:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Database2:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----Database1:-----
+    A   B   C   D
+0  A0  B0  C0  D0
+1  A1  B1  C1  D1
+2  A2  B2  C2  D2
+3  A3  B3  C3  D3
+-----Database2:-----
+    A   B   C   D
+0  A4  B4  C4  D4
+1  A5  B5  C5  D5
+2  A6  B6  C6  D6
+3  A7  B7  C7  D7
+</pre></div>
+</div>
+</div>
+</div>
+<section id="concatenate-dataframes-row-level">
+<h2>concatenate dataframes (row level)<a class="headerlink" href="#concatenate-dataframes-row-level" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#row level concatenation</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">])</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    A   B   C   D
+0  A0  B0  C0  D0
+1  A1  B1  C1  D1
+2  A2  B2  C2  D2
+3  A3  B3  C3  D3
+0  A4  B4  C4  D4
+1  A5  B5  C5  D5
+2  A6  B6  C6  D6
+3  A7  B7  C7  D7
+</pre></div>
+</div>
+</div>
+</div>
+<p>notice that the indexes are repeated. Let’s fix this by correcting the indexes</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    A   B   C   D
+0  A0  B0  C0  D0
+1  A1  B1  C1  D1
+2  A2  B2  C2  D2
+3  A3  B3  C3  D3
+4  A4  B4  C4  D4
+5  A5  B5  C5  D5
+6  A6  B6  C6  D6
+7  A7  B7  C7  D7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="concatenate-dataframes-column-level">
+<h2>concatenate dataframes (column level)<a class="headerlink" href="#concatenate-dataframes-column-level" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#column level concatenation</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    A   B   C   D   A   B   C   D
+0  A0  B0  C0  D0  A4  B4  C4  D4
+1  A1  B1  C1  D1  A5  B5  C5  D5
+2  A2  B2  C2  D2  A6  B6  C6  D6
+3  A3  B3  C3  D3  A7  B7  C7  D7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="merge">
+<h2>Merge<a class="headerlink" href="#merge" title="Permalink to this heading">#</a></h2>
+<p><img alt="Picture title" src="../_images/image-20221122-214237.png" /></p>
+<section id="inner-join-with-merge">
+<h3>inner join with .merge()<a class="headerlink" href="#inner-join-with-merge" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#using the logic from the picture above, let&#39;s merge</span>
+
+<span class="c1">#creating dataframe</span>
+
+<span class="n">izq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;key&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A0&#39;</span><span class="p">,</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;A2&#39;</span><span class="p">,</span><span class="s1">&#39;A3&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;B0&#39;</span><span class="p">,</span> <span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">,</span><span class="s1">&#39;B3&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">der</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;key&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span><span class="s1">&#39;C3&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;D0&#39;</span><span class="p">,</span> <span class="s1">&#39;D1&#39;</span><span class="p">,</span> <span class="s1">&#39;D2&#39;</span><span class="p">,</span><span class="s1">&#39;D3&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Left database:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Right database-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----Left database:-----
+  key   A   B
+0  k0  A0  B0
+1  k1  A1  B1
+2  k2  A2  B2
+3  k3  A3  B3
+-----Right database-----
+  key   C   D
+0  k0  C0  D0
+1  k1  C1  D1
+2  k2  C2  D2
+3  k3  C3  D3
+</pre></div>
+</div>
+</div>
+</div>
+<p>let’s join the dataframe Der to Izq</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#merge</span>
+<span class="n">merge1</span> <span class="o">=</span> <span class="n">izq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">der</span> <span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">merge1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  key   A   B   C   D
+0  k0  A0  B0  C0  D0
+1  k1  A1  B1  C1  D1
+2  k2  A2  B2  C2  D2
+3  k3  A3  B3  C3  D3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-join-with-merge-different-col-names">
+<h3>inner join with .merge() -different col names-<a class="headerlink" href="#inner-join-with-merge-different-col-names" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#MERGE 2</span>
+<span class="n">izq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;key&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">],</span>
+ <span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A0&#39;</span><span class="p">,</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;A2&#39;</span><span class="p">,</span><span class="s1">&#39;A3&#39;</span><span class="p">],</span>
+<span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;B0&#39;</span><span class="p">,</span> <span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">,</span><span class="s1">&#39;B3&#39;</span><span class="p">]})</span>
+
+<span class="n">der</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;key_2&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">],</span>
+ <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span><span class="s1">&#39;C3&#39;</span><span class="p">],</span>
+<span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;D0&#39;</span><span class="p">,</span> <span class="s1">&#39;D1&#39;</span><span class="p">,</span> <span class="s1">&#39;D2&#39;</span><span class="p">,</span><span class="s1">&#39;D3&#39;</span><span class="p">]})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Left database:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Right database-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----Left database:-----
+  key   A   B
+0  k0  A0  B0
+1  k1  A1  B1
+2  k2  A2  B2
+3  k3  A3  B3
+-----Right database-----
+  key_2   C   D
+0    k0  C0  D0
+1    k1  C1  D1
+2    k2  C2  D2
+3    k3  C3  D3
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that the column names are not the same, so we must specify the column names</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merge2</span> <span class="o">=</span> <span class="n">izq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;key_2&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">merge2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  key   A   B key_2   C   D
+0  k0  A0  B0    k0  C0  D0
+1  k1  A1  B1    k1  C1  D1
+2  k2  A2  B2    k2  C2  D2
+3  k3  A3  B3    k3  C3  D3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="left-join-with-merge-empty-records-in-key-col">
+<h3>left join with .merge() -empty records in key col-<a class="headerlink" href="#left-join-with-merge-empty-records-in-key-col" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#let&#39;s create the dataframes</span>
+
+<span class="n">izq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;key&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">],</span>
+ <span class="s1">&#39;A&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A0&#39;</span><span class="p">,</span> <span class="s1">&#39;A1&#39;</span><span class="p">,</span> <span class="s1">&#39;A2&#39;</span><span class="p">,</span><span class="s1">&#39;A3&#39;</span><span class="p">],</span>
+<span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;B0&#39;</span><span class="p">,</span> <span class="s1">&#39;B1&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">,</span><span class="s1">&#39;B3&#39;</span><span class="p">]})</span>
+
+<span class="n">der</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;key_2&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span> <span class="s1">&#39;k1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+ <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span><span class="s1">&#39;C3&#39;</span><span class="p">],</span>
+<span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;D0&#39;</span><span class="p">,</span> <span class="s1">&#39;D1&#39;</span><span class="p">,</span> <span class="s1">&#39;D2&#39;</span><span class="p">,</span><span class="s1">&#39;D3&#39;</span><span class="p">]})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Left database:-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----Right database-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----Left database:-----
+  key   A   B
+0  k0  A0  B0
+1  k1  A1  B1
+2  k2  A2  B2
+3  k3  A3  B3
+-----Right database-----
+  key_2   C   D
+0    k0  C0  D0
+1    k1  C1  D1
+2    k2  C2  D2
+3   NaN  C3  D3
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since there is a missing value in the column keys, pandas won’t detect it as a match. Solve it with a “How”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merge3</span> <span class="o">=</span> <span class="n">izq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;key&quot;</span> <span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;key_2&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">merge3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  key   A   B key_2    C    D
+0  k0  A0  B0    k0   C0   D0
+1  k1  A1  B1    k1   C1   D1
+2  k2  A2  B2    k2   C2   D2
+3  k3  A3  B3   NaN  NaN  NaN
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="join">
+<h1>Join<a class="headerlink" href="#join" title="Permalink to this heading">#</a></h1>
+<p>you can join with the .join() function</p>
+<p><strong>.join() is going to match the records BASED ON THE INDEX</strong>, remember that <strong>.merge() matches the records based on the column names</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">izq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A0&#39;</span><span class="p">,</span><span class="s1">&#39;A1&#39;</span><span class="p">,</span><span class="s1">&#39;A2&#39;</span><span class="p">],</span>
+  <span class="s1">&#39;B&#39;</span><span class="p">:[</span><span class="s1">&#39;B0&#39;</span><span class="p">,</span><span class="s1">&#39;B1&#39;</span><span class="p">,</span><span class="s1">&#39;B2&#39;</span><span class="p">]},</span>
+  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span><span class="s1">&#39;k1&#39;</span><span class="p">,</span><span class="s1">&#39;k2&#39;</span><span class="p">])</span>
+
+<span class="n">der</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span><span class="s1">&#39;C2&#39;</span><span class="p">],</span>
+  <span class="s1">&#39;D&#39;</span><span class="p">:[</span><span class="s1">&#39;D0&#39;</span><span class="p">,</span><span class="s1">&#39;D1&#39;</span><span class="p">,</span><span class="s1">&#39;D2&#39;</span><span class="p">]},</span>
+  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k0&#39;</span><span class="p">,</span><span class="s1">&#39;k2&#39;</span><span class="p">,</span><span class="s1">&#39;k3&#39;</span><span class="p">])</span> 
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----left database-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----right database-----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----left database-----
+     A   B
+k0  A0  B0
+k1  A1  B1
+k2  A2  B2
+-----right database-----
+     C   D
+k0  C0  D0
+k2  C1  D1
+k3  C2  D2
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inner-join">
+<h2>inner join<a class="headerlink" href="#inner-join" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     A   B   C   D
+k0  A0  B0  C0  D0
+k2  A2  B2  C1  D1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="outer-join">
+<h2>outer join<a class="headerlink" href="#outer-join" title="Permalink to this heading">#</a></h2>
+<p>this can be explained as “bring me all data even if there’s no match”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      A    B    C    D
+k0   A0   B0   C0   D0
+k1   A1   B1  NaN  NaN
+k2   A2   B2   C1   D1
+k3  NaN  NaN   C2   D2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="left-join">
+<h2>left join<a class="headerlink" href="#left-join" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     A   B    C    D
+k0  A0  B0   C0   D0
+k1  A1  B1  NaN  NaN
+k2  A2  B2   C1   D1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="right-join">
+<h2>right join<a class="headerlink" href="#right-join" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">izq</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">der</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      A    B   C   D
+k0   A0   B0  C0  D0
+k2   A2   B2  C1  D1
+k3  NaN  NaN  C2  D2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="in-terms-of-performance-and-speed-what-is-better-merge-or-join-when-it-comes-to-big-data">
+<h2>In terms of performance and speed, what is better? Merge or Join? when it comes to big data.<a class="headerlink" href="#in-terms-of-performance-and-speed-what-is-better-merge-or-join-when-it-comes-to-big-data" title="Permalink to this heading">#</a></h2>
+<p>En temas de performance y velocidad, ¿cuál es mejor el Merge o el Join, cuando se trata de miles de registros?
+&#64;gustavomp, Platzinauta</p>
+<p>Respuesta:
+join suele ser mejor
+&#64;alarcon7a, Profe Platzi</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pivot-table">
+<h1>Pivot Table<a class="headerlink" href="#pivot-table" title="Permalink to this heading">#</a></h1>
+<p>Pivot transforms determined values from columns or rows into index of a new dataframe, the intersection is the result.</p>
+<p><em>the structure is:</em></p>
+<p><em>dataframe</em> <strong>.pivot_table()</strong></p>
+<p><em>with three arguments:</em></p>
+<ul class="simple">
+<li><p>index</p></li>
+<li><p>columns</p></li>
+<li><p>values</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#let&#39;s import our data</span>
+<span class="n">df_books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestsellers-with-categories.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">#now let&#39;s explore it</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">df_books</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                Name  \
+0                      10-Day Green Smoothie Cleanse   
+1                                  11/22/63: A Novel   
+2            12 Rules for Life: An Antidote to Chaos   
+3                             1984 (Signet Classics)   
+4  5,000 Awesome Facts (About Everything!) (Natio...   
+
+                     Author  User Rating  Reviews  Price  Year        Genre  
+0                  JJ Smith          4.7    17350      8  2016  Non Fiction  
+1              Stephen King          4.6     2052     22  2011      Fiction  
+2        Jordan B. Peterson          4.7    18979     15  2018  Non Fiction  
+3             George Orwell          4.7    21424      6  2017      Fiction  
+4  National Geographic Kids          4.8     7665     12  2019  Non Fiction  
+</pre></div>
+</div>
+</div>
+</div>
+<p>now let’s apply pivot_table</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df_books</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;Author&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Genre&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;User Rating&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genre                       Fiction  Non Fiction
+Author                                          
+Abraham Verghese                4.6          NaN
+Adam Gasiewski                  NaN     4.400000
+Adam Mansbach                   4.8          NaN
+Adir Levy                       4.8          NaN
+Admiral William H. McRaven      NaN     4.700000
+...                             ...          ...
+Walter Isaacson                 NaN     4.566667
+William Davis                   NaN     4.400000
+William P. Young                4.6          NaN
+Wizards RPG Team                4.8          NaN
+Zhi Gang Sha                    NaN     4.600000
+
+[248 rows x 2 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another example:</p>
+<p><strong>Based on the genre and the year, get the user rating average</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df_books</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;Genre&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;User Rating&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year             2009   2010      2011      2012      2013      2014  \
+Genre                                                                  
+Fiction      4.591667  4.615  4.619048  4.495238  4.545833  4.631034   
+Non Fiction  4.576923  4.520  4.513793  4.558621  4.561538  4.609524   
+
+Year             2015      2016      2017      2018      2019  
+Genre                                                          
+Fiction      4.652941  4.715789  4.737500  4.738095  4.820000  
+Non Fiction  4.645455  4.654839  4.588462  4.617241  4.686667  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another example:</p>
+<p><strong>Based on the genre and the year, get the user rating median</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">df_books</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;Genre&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;User Rating&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;median&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year         2009  2010  2011  2012  2013  2014  2015  2016  2017  2018  2019
+Genre                                                                        
+Fiction       4.7  4.70   4.7   4.6  4.65   4.7   4.8   4.8   4.8   4.8  4.85
+Non Fiction   4.6  4.55   4.6   4.6  4.60   4.6   4.7   4.7   4.6   4.7  4.70
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="melt-or-unpivot-columns">
+<h1>Melt (or unpivot columns)<a class="headerlink" href="#melt-or-unpivot-columns" title="Permalink to this heading">#</a></h1>
+<p>Melt turns columns into rows. it will generate two columns.</p>
+<p>1st column with the previous column name
+2nd column with the value assigned to that column</p>
+<p>example: suposse you have the following data:</p>
+<p><img alt="Picture title" src="../_images/image-20221122-231059.png" /></p>
+<p>and you want to put those column names (which are data) into rows. <strong>.melt()</strong> will do this for you!</p>
+<p><em>data available and loaded at financial.csv</em></p>
+<p><em>please note that it is delimited by;</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">financial</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;financial.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">financial</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Categoria  01/19  02/19  03/19  04/19  05/19  06/19  07/19  08/19  \
+0           Online   6500   6500   6500   6500   6500   6500   6500   6500   
+1           Comida   1200   1200   1200   1200   1200   1200   1200   1200   
+2     Electricidad    900    900    900    900    900    900    900    900   
+3  Entretenimiento   1000   1000   1000   1000   1000   1000   1000   1000   
+4           Renta    3500   3500   3500   3500   3500   3500   3500   3500   
+5        Servicios    500    500    500    500    500    500    500    500   
+6         Telefono    300    300    300    300    300    300    300    300   
+7       Transporte    800    800    800    800    800    800    800    800   
+8            Otros    200    200    200    200    200    200    200    200   
+
+   09/19  ...  03/20  04/20  05/20  06/20  07/20  08/20  09/20  10/20  11/20  \
+0   6500  ...   6500   6500   6500   6500   6500   6500   6500   6500   6500   
+1   1200  ...   1200   1200   1200   1200   1200   1200   1200   1200   1200   
+2    900  ...    900    900    900    900    900    900    900    900    900   
+3   1000  ...   1000   1000   1000   1000   1000   1000   1000   1000   1000   
+4   3500  ...   3500   3500   3500   3500   3500   3500   3500   3500   3500   
+5    500  ...    500    500    500    500    500    500    500    500    500   
+6    300  ...    300    300    300    300    300    300    300    300    300   
+7    800  ...    800    800    800    800    800    800    800    800    800   
+8    200  ...    200    200    200    200    200    200    200    200    200   
+
+   12/20  
+0   6500  
+1   1200  
+2    900  
+3   1000  
+4   3500  
+5    500  
+6    300  
+7    800  
+8    200  
+
+[9 rows x 25 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>let’s unpivot the thing</p>
+<ul class="simple">
+<li><p>note that we want to unpivot the dates <strong>but still keep the category column</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">financial</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;Categoria&quot;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Categoria variable  value
+0             Online    01/19   6500
+1             Comida    01/19   1200
+2       Electricidad    01/19    900
+3    Entretenimiento    01/19   1000
+4             Renta     01/19   3500
+..               ...      ...    ...
+211           Renta     12/20   3500
+212        Servicios    12/20    500
+213         Telefono    12/20    300
+214       Transporte    12/20    800
+215            Otros    12/20    200
+
+[216 rows x 3 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Simplemente, podemos seleccionar las columnas que no quiero hacer melt usando el parámetro id_vars.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="apply">
+<h1>Apply<a class="headerlink" href="#apply" title="Permalink to this heading">#</a></h1>
+<p>Apply allows us to <em>apply</em> functions to our dataframe</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pf</span>
+
+<span class="c1">#creating my dataframe</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestsellers-with-categories.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">#and also let&#39;s create a function that multiplies whatever the argument is *2</span>
+<span class="k">def</span> <span class="nf">twotimes</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">*</span><span class="mi">2</span>
+
+<span class="c1">#and now we can apply that function to User Rating</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">twotimes</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name  \
+0                        10-Day Green Smoothie Cleanse   
+1                                    11/22/63: A Novel   
+2              12 Rules for Life: An Antidote to Chaos   
+3                               1984 (Signet Classics)   
+4    5,000 Awesome Facts (About Everything!) (Natio...   
+..                                                 ...   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)   
+546  You Are a Badass: How to Stop Doubting Your Gr...   
+547  You Are a Badass: How to Stop Doubting Your Gr...   
+548  You Are a Badass: How to Stop Doubting Your Gr...   
+549  You Are a Badass: How to Stop Doubting Your Gr...   
+
+                       Author  User Rating  Reviews  Price  Year        Genre  \
+0                    JJ Smith          4.7    17350      8  2016  Non Fiction   
+1                Stephen King          4.6     2052     22  2011      Fiction   
+2          Jordan B. Peterson          4.7    18979     15  2018  Non Fiction   
+3               George Orwell          4.7    21424      6  2017      Fiction   
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction   
+..                        ...          ...      ...    ...   ...          ...   
+545               Jeff Kinney          4.9     9413      8  2019      Fiction   
+546               Jen Sincero          4.7    14331      8  2016  Non Fiction   
+547               Jen Sincero          4.7    14331      8  2017  Non Fiction   
+548               Jen Sincero          4.7    14331      8  2018  Non Fiction   
+549               Jen Sincero          4.7    14331      8  2019  Non Fiction   
+
+     User Rating2  
+0             9.4  
+1             9.2  
+2             9.4  
+3             9.4  
+4             9.6  
+..            ...  
+545           9.8  
+546           9.4  
+547           9.4  
+548           9.4  
+549           9.4  
+
+[550 rows x 8 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>note that now we have the new column</p>
+<p>You can even apply lambda functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Rating3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                  Name  \
+0                        10-Day Green Smoothie Cleanse   
+1                                    11/22/63: A Novel   
+2              12 Rules for Life: An Antidote to Chaos   
+3                               1984 (Signet Classics)   
+4    5,000 Awesome Facts (About Everything!) (Natio...   
+..                                                 ...   
+545       Wrecking Ball (Diary of a Wimpy Kid Book 14)   
+546  You Are a Badass: How to Stop Doubting Your Gr...   
+547  You Are a Badass: How to Stop Doubting Your Gr...   
+548  You Are a Badass: How to Stop Doubting Your Gr...   
+549  You Are a Badass: How to Stop Doubting Your Gr...   
+
+                       Author  User Rating  Reviews  Price  Year        Genre  \
+0                    JJ Smith          4.7    17350      8  2016  Non Fiction   
+1                Stephen King          4.6     2052     22  2011      Fiction   
+2          Jordan B. Peterson          4.7    18979     15  2018  Non Fiction   
+3               George Orwell          4.7    21424      6  2017      Fiction   
+4    National Geographic Kids          4.8     7665     12  2019  Non Fiction   
+..                        ...          ...      ...    ...   ...          ...   
+545               Jeff Kinney          4.9     9413      8  2019      Fiction   
+546               Jen Sincero          4.7    14331      8  2016  Non Fiction   
+547               Jen Sincero          4.7    14331      8  2017  Non Fiction   
+548               Jen Sincero          4.7    14331      8  2018  Non Fiction   
+549               Jen Sincero          4.7    14331      8  2019  Non Fiction   
+
+     User Rating2  Rating3  
+0             9.4     14.1  
+1             9.2     13.8  
+2             9.4     14.1  
+3             9.4     14.1  
+4             9.6     14.4  
+..            ...      ...  
+545           9.8     14.7  
+546           9.4     14.1  
+547           9.4     14.1  
+548           9.4     14.1  
+549           9.4     14.1  
+
+[550 rows x 9 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="apply-functions-with-conditions">
+<h2>Apply functions with conditions<a class="headerlink" href="#apply-functions-with-conditions" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#multiply *2 the records that meet the condition (genre = fiction)</span>
+<span class="n">data</span><span class="p">[</span><span class="s2">&quot;RatingConditioned&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> 
+    <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Genre&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Fiction&quot;</span> <span class="k">else</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;User Rating&quot;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Author</th>
+      <th>User Rating</th>
+      <th>Reviews</th>
+      <th>Price</th>
+      <th>Year</th>
+      <th>Genre</th>
+      <th>User Rating2</th>
+      <th>Rating3</th>
+      <th>RatingConditioned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10-Day Green Smoothie Cleanse</td>
+      <td>JJ Smith</td>
+      <td>4.7</td>
+      <td>17350</td>
+      <td>8</td>
+      <td>2016</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11/22/63: A Novel</td>
+      <td>Stephen King</td>
+      <td>4.6</td>
+      <td>2052</td>
+      <td>22</td>
+      <td>2011</td>
+      <td>Fiction</td>
+      <td>9.2</td>
+      <td>13.8</td>
+      <td>9.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12 Rules for Life: An Antidote to Chaos</td>
+      <td>Jordan B. Peterson</td>
+      <td>4.7</td>
+      <td>18979</td>
+      <td>15</td>
+      <td>2018</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1984 (Signet Classics)</td>
+      <td>George Orwell</td>
+      <td>4.7</td>
+      <td>21424</td>
+      <td>6</td>
+      <td>2017</td>
+      <td>Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>9.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5,000 Awesome Facts (About Everything!) (Natio...</td>
+      <td>National Geographic Kids</td>
+      <td>4.8</td>
+      <td>7665</td>
+      <td>12</td>
+      <td>2019</td>
+      <td>Non Fiction</td>
+      <td>9.6</td>
+      <td>14.4</td>
+      <td>4.8</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>545</th>
+      <td>Wrecking Ball (Diary of a Wimpy Kid Book 14)</td>
+      <td>Jeff Kinney</td>
+      <td>4.9</td>
+      <td>9413</td>
+      <td>8</td>
+      <td>2019</td>
+      <td>Fiction</td>
+      <td>9.8</td>
+      <td>14.7</td>
+      <td>9.8</td>
+    </tr>
+    <tr>
+      <th>546</th>
+      <td>You Are a Badass: How to Stop Doubting Your Gr...</td>
+      <td>Jen Sincero</td>
+      <td>4.7</td>
+      <td>14331</td>
+      <td>8</td>
+      <td>2016</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+    <tr>
+      <th>547</th>
+      <td>You Are a Badass: How to Stop Doubting Your Gr...</td>
+      <td>Jen Sincero</td>
+      <td>4.7</td>
+      <td>14331</td>
+      <td>8</td>
+      <td>2017</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+    <tr>
+      <th>548</th>
+      <td>You Are a Badass: How to Stop Doubting Your Gr...</td>
+      <td>Jen Sincero</td>
+      <td>4.7</td>
+      <td>14331</td>
+      <td>8</td>
+      <td>2018</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+    <tr>
+      <th>549</th>
+      <td>You Are a Badass: How to Stop Doubting Your Gr...</td>
+      <td>Jen Sincero</td>
+      <td>4.7</td>
+      <td>14331</td>
+      <td>8</td>
+      <td>2019</td>
+      <td>Non Fiction</td>
+      <td>9.4</td>
+      <td>14.1</td>
+      <td>4.7</td>
+    </tr>
+  </tbody>
+</table>
+<p>550 rows × 10 columns</p>
+</div></div></div>
+</div>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=fbf5e099-647a-47c3-8670-cb24011bd17b' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./2-Pandas"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-data-types">Pandas data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-series">Pandas series:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-dataframe">Pandas dataframe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-pandas-dataframe">Create a pandas DataFrame</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-a-dictionary">Create a Dataframe from a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-csv">Create a DataFrame from CSV.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-dataframe-from-json">Create a DataFrame from JSON.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-accessing-in-pandas">Data accessing in Pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-accessing">Column accessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing">Row accessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing-by-row-label-loc">Row accessing by Row Label -&gt; loc[]</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-loc">filtering with loc</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-accessing-by-row-index-iloc">Row accessing by Row index -&gt; iloc[]</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#add-or-delete-data-with-pandas">Add or delete data with pandas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-columns-df-drop">Delete columns - df.drop()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-rows-df-drop">Delete rows - df.drop()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-columns">Add columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-an-index-to-the-data">adding an index to the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-rows">Add rows</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deal-with-null-data">Deal with Null Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-null-data-in-a-df">identify null data in a DF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-null-values">replace null values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-for-a-string">replace for a string</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-for-column-mean">replace for column mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replace-null-values-for-an-interpolation">replace null values for an interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-null-values">delete null values</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-conditions">Filtering with conditions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-with-multiple-conditions">Filtering with multiple conditions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#column-information">Column Information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#know-columns-data-type">know columns data type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-column-data-type">change the column data type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#know-column-main-statistics">know column main statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-last-registers-from-columns">see last registers from columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-memory-usage-of-each-column">see memory usage of each column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-records-in-a-column">count records in a column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-duplicates">delete duplicates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delete-duplicates-and-keep-last">DELETE DUPLICATES AND KEEP LAST!!!!!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-sorting-ascending">Column sorting (ascending)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#column-sorting-descending">Column sorting (descending)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by">Group by</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agg">.agg()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-by-multiple-arguments">Group by(multiple arguments)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-concat">Merge &amp; Concat</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-dataframes-row-level">concatenate dataframes (row level)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-dataframes-column-level">concatenate dataframes (column level)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join-with-merge">inner join with .merge()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join-with-merge-different-col-names">inner join with .merge() -different col names-</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join-with-merge-empty-records-in-key-col">left join with .merge() -empty records in key col-</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#join">Join</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join">inner join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outer-join">outer join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#left-join">left join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#right-join">right join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-terms-of-performance-and-speed-what-is-better-merge-or-join-when-it-comes-to-big-data">In terms of performance and speed, what is better? Merge or Join? when it comes to big data.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-table">Pivot Table</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melt-or-unpivot-columns">Melt (or unpivot columns)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#apply">Apply</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-functions-with-conditions">Apply functions with conditions</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
