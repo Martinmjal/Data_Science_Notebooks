@@ -1,0 +1,4923 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Manejo de Datos Faltantes: Imputación &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '8-1-Imputacion-de-datos-faltantes/live-imputation-missing-values';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extensión de la API de Pandas" href="../8-0-1-pandas-missing-extension/pandas-missing-extension.html" />
+    <link rel="prev" title="Manejo de Datos Faltantes: Detección" href="../8-Deteccion-de-valores-faltantes/live-exploration-missing-values.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Libraries for data manipulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-Numpy/1_Numpy.html">Numpy</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../2-Pandas/2_Pandas.html">Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3-Matplotlib/3_Matplotlib.html">Matplotlib</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-Seaborn/Notebook%201.html">Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Math and Statistics Fundamentals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-Mathematical-Functions-for-data-science/Notebook%201.html">Mathematical functions for data science &amp; artificial intelligence</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-Statistics-For-Data-Science/Estadistica%20descriptiva.html">Intro to Statistics for Data Science</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-1-Algebra-Lineal-aplicada-a-Machine-Learning/contenido.html"></a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-2-Probabilidad/Notebook%201.html">Distribuciones de Probabilidad</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-3-Inferential-Statistics-and-Sampling/Notebook%201.html">Inferential Statistics &amp; Sampling</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exploratory Data Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-Exploratory-Data-Analysis-EDA/Notebook%201.html">Exploratory Data Analysis Basics</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../8-Deteccion-de-valores-faltantes/live-exploration-missing-values.html">Manejo de Datos Faltantes: Detección</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Manejo de Datos Faltantes: Imputación</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../8-0-1-pandas-missing-extension/pandas-missing-extension.html">Extensión de la API de Pandas</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F8-1-Imputacion-de-datos-faltantes/live-imputation-missing-values.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/8-1-Imputacion-de-datos-faltantes/live-imputation-missing-values.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Manejo de Datos Faltantes: Imputación</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Manejo de Datos Faltantes: Imputación</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-ambiente-de-trabajo">Configuración de ambiente de trabajo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importar-librerias">Importar librerías</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importar-funciones-personalizadas">Importar funciones personalizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-el-aspecto-general-de-las-graficas-del-proyecto">Configurar el aspecto general de las gráficas del proyecto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-problema-de-trabajar-con-valores-faltantes">El problema de trabajar con valores faltantes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparando-datos-national-health-and-nutrition-examination-survey">Preparando datos: <em>National Health and Nutrition Examination Survey</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideracion-y-evaluacion-de-los-distintos-tipos-de-valores-faltantes">Consideración y evaluación de los distintos tipos de valores faltantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-del-mecanismo-de-valores-faltantes-por-prueba-de-t-test">Evaluación del mecanismo de valores faltantes por prueba de <em>t-test</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tratamiento-de-variables-categoricas-para-imputacion-de-valores-faltantes">Tratamiento de variables categóricas para imputación de valores faltantes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codificacion-ordinal">Codificación ordinal</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo">Ejemplo</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicando-la-codificacion-ordinal-a-todas-tus-variables-categoricas">Aplicando la codificación ordinal a todas tus variables categóricas</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding"><em>One Hot Encoding</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-get-dummies-vs-skelearn-preprocessing-onehotencoder"><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code> vs <code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-get-dummies"><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skelearn-preprocessing-onehotencoder"><code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-imputacion-de-valores-faltantes">Tipos de imputación de valores faltantes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-de-un-unico-valor-media-mediana-moda">Imputación de un único valor (media, mediana, moda)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#media">Media</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-llenado-hacia-atras-e-imputacion-por-llenado-hacia-adelante">Imputación por llenado hacia atrás e imputación por llenado hacia adelante</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fillna-vs-ffill-o-bfill"><code class="docutils literal notranslate"><span class="pre">fillna()</span></code> vs <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forwardfill">Forwardfill</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#backfill">Backfill</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendaciones-al-imputar-valores-utilizando-ffill-o-bfill">Recomendaciones al imputar valores utilizando <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-interpolacion">Imputación por interpolación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-ffill">Visualizando con ffill</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-bfill">Visualizando con bfill</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-bfill-o-ffill-con-valores-mas-cercanos">Visualizando con bfill o ffill con valores mas cercanos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-valores-interpolados">Visualizando valores interpolados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-algoritmo-de-vecinos-mas-cercanos-knn">Imputación por algoritmo de vecinos más cercanos (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-algorithm">KNN algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordenamiento-por-cantidad-de-variables-faltantes">Ordenamiento por cantidad de variables faltantes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-basada-en-modelos">Imputación basada en modelos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputaciones-multiples-por-ecuaciones-encadenadas-mice">Imputaciones Múltiples por Ecuaciones Encadenadas (MICE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformacion-inversa-de-los-datos">Transformación inversa de los datos</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="manejo-de-datos-faltantes-imputacion">
+<h1>Manejo de Datos Faltantes: Imputación<a class="headerlink" href="#manejo-de-datos-faltantes-imputacion" title="Permalink to this heading">#</a></h1>
+<section id="configuracion-de-ambiente-de-trabajo">
+<h2>Configuración de ambiente de trabajo<a class="headerlink" href="#configuracion-de-ambiente-de-trabajo" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+Requirement already satisfied: pip in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 1)) (23.1.2)
+Collecting pyjanitor (from -r requirements.txt (line 2))
+  Using cached pyjanitor-0.25.0-py3-none-any.whl (171 kB)
+Requirement already satisfied: matplotlib in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 3)) (3.7.2)
+Collecting missingno (from -r requirements.txt (line 4))
+  Using cached missingno-0.5.2-py3-none-any.whl (8.7 kB)
+Requirement already satisfied: numpy in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 5)) (1.25.2)
+Requirement already satisfied: pandas in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 6)) (2.1.0)
+Requirement already satisfied: pandas-flavor in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 7)) (0.6.0)
+Collecting pandas-profiling (from -r requirements.txt (line 8))
+  Using cached pandas_profiling-3.2.0-py2.py3-none-any.whl (262 kB)
+Requirement already satisfied: seaborn in c:\users\admin\miniconda3\lib\site-packages (from -r requirements.txt (line 9)) (0.12.2)
+Collecting session-info (from -r requirements.txt (line 10))
+  Using cached session_info-1.0.0.tar.gz (24 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status &#39;done&#39;
+Collecting ipywidgets (from -r requirements.txt (line 11))
+  Using cached ipywidgets-8.1.0-py3-none-any.whl (139 kB)
+Collecting ozon3 (from -r requirements.txt (line 12))
+  Using cached ozon3-4.0.2-py3-none-any.whl (27 kB)
+Collecting pyreadr (from -r requirements.txt (line 13))
+  Using cached pyreadr-0.4.9-cp311-cp311-win_amd64.whl (1.3 MB)
+Collecting upsetplot (from -r requirements.txt (line 14))
+  Using cached UpSetPlot-0.8.0.tar.gz (22 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status &#39;done&#39;
+Collecting statsmodels==0.13.2 (from -r requirements.txt (line 15))
+  Using cached statsmodels-0.13.2.tar.gz (17.9 MB)
+  Installing build dependencies: started
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="importar-librerias">
+<h2>Importar librerías<a class="headerlink" href="#importar-librerias" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">missingno</span>
+<span class="kn">import</span> <span class="nn">nhanes.load</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">session_info</span>
+<span class="kn">import</span> <span class="nn">sklearn.compose</span>
+<span class="kn">import</span> <span class="nn">sklearn.impute</span>
+<span class="kn">import</span> <span class="nn">sklearn.preprocessing</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.datasets</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_iterative_imputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.kernel_approximation</span> <span class="kn">import</span> <span class="n">Nystroem</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">BayesianRidge</span><span class="p">,</span> <span class="n">Ridge</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.mosaicplot</span> <span class="kn">import</span> <span class="n">mosaic</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="importar-funciones-personalizadas">
+<h2>Importar funciones personalizadas<a class="headerlink" href="#importar-funciones-personalizadas" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> pandas-missing-extension.ipynb
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/root/venv/lib/python3.9/site-packages/upsetplot/plotting.py:20: MatplotlibDeprecationWarning: The matplotlib.tight_layout module was deprecated in Matplotlib 3.6 and will be removed two minor releases later.
+  from matplotlib.tight_layout import get_renderer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="configurar-el-aspecto-general-de-las-graficas-del-proyecto">
+<h2>Configurar el aspecto general de las gráficas del proyecto<a class="headerlink" href="#configurar-el-aspecto-general-de-las-graficas-del-proyecto" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">rc</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="el-problema-de-trabajar-con-valores-faltantes">
+<h2>El problema de trabajar con valores faltantes<a class="headerlink" href="#el-problema-de-trabajar-con-valores-faltantes" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airquality_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_rdataset</span><span class="p">(</span><span class="s2">&quot;airquality&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">data</span>
+    <span class="o">.</span><span class="n">clean_names</span><span class="p">(</span>
+        <span class="n">case_type</span> <span class="o">=</span> <span class="s2">&quot;snake&quot;</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="mi">1973</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">]])</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">airquality_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ozone</th>
+      <th>solar_r</th>
+      <th>wind</th>
+      <th>temp</th>
+      <th>month</th>
+      <th>day</th>
+      <th>year</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1973-05-01</th>
+      <td>41.0</td>
+      <td>190.0</td>
+      <td>7.4</td>
+      <td>67</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-02</th>
+      <td>36.0</td>
+      <td>118.0</td>
+      <td>8.0</td>
+      <td>72</td>
+      <td>5</td>
+      <td>2</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-03</th>
+      <td>12.0</td>
+      <td>149.0</td>
+      <td>12.6</td>
+      <td>74</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-04</th>
+      <td>18.0</td>
+      <td>313.0</td>
+      <td>11.5</td>
+      <td>62</td>
+      <td>5</td>
+      <td>4</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-05</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>14.3</td>
+      <td>56</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1973-09-26</th>
+      <td>30.0</td>
+      <td>193.0</td>
+      <td>6.9</td>
+      <td>70</td>
+      <td>9</td>
+      <td>26</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-27</th>
+      <td>NaN</td>
+      <td>145.0</td>
+      <td>13.2</td>
+      <td>77</td>
+      <td>9</td>
+      <td>27</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-28</th>
+      <td>14.0</td>
+      <td>191.0</td>
+      <td>14.3</td>
+      <td>75</td>
+      <td>9</td>
+      <td>28</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-29</th>
+      <td>18.0</td>
+      <td>131.0</td>
+      <td>8.0</td>
+      <td>76</td>
+      <td>9</td>
+      <td>29</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-30</th>
+      <td>20.0</td>
+      <td>223.0</td>
+      <td>11.5</td>
+      <td>68</td>
+      <td>9</td>
+      <td>30</td>
+      <td>1973</td>
+    </tr>
+  </tbody>
+</table>
+<p>153 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>Hagamos dos modelos de regresion para predecir la temperatura en funcion de otras variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;temp ~ ozone&quot;</span><span class="p">,</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">airquality_df</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>temp</td>       <th>  R-squared:         </th> <td>   0.488</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.483</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   108.5</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Wed, 25 Jan 2023</td> <th>  Prob (F-statistic):</th> <td>2.93e-18</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>03:02:38</td>     <th>  Log-Likelihood:    </th> <td> -386.27</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   116</td>      <th>  AIC:               </th> <td>   776.5</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   114</td>      <th>  BIC:               </th> <td>   782.1</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;temp ~ ozone + solar_r&quot;</span><span class="p">,</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">airquality_df</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>temp</td>       <th>  R-squared:         </th> <td>   0.491</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.481</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   52.07</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Wed, 25 Jan 2023</td> <th>  Prob (F-statistic):</th> <td>1.47e-16</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>03:02:38</td>     <th>  Log-Likelihood:    </th> <td> -369.78</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   111</td>      <th>  AIC:               </th> <td>   745.6</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   108</td>      <th>  BIC:               </th> <td>   753.7</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table></div></div>
+</div>
+<p>Si analizas el numero de observaciones, veras que un modelo ignora cierta cantidad de valores faltantes mientras que el otro no lo hace. No es recomendable en este caso usar el R^2 para comparar ambos modelos como equivalentes. Por lo tanto toca imputar datos y asi poder realizarlo</p>
+<section id="preparando-datos-national-health-and-nutrition-examination-survey">
+<h3>Preparando datos: <em>National Health and Nutrition Examination Survey</em><a class="headerlink" href="#preparando-datos-national-health-and-nutrition-examination-survey" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> download-data-and-load-it.ipynb
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/root/venv/lib/python3.9/site-packages/missingno/missingno.py:73: MatplotlibDeprecationWarning: The &#39;b&#39; parameter of grid() has been renamed &#39;visible&#39; since Matplotlib 3.5; support for the old name will be dropped two minor releases later.
+  ax0.grid(b=False)
+/root/venv/lib/python3.9/site-packages/missingno/missingno.py:142: MatplotlibDeprecationWarning: The &#39;b&#39; parameter of grid() has been renamed &#39;visible&#39; since Matplotlib 3.5; support for the old name will be dropped two minor releases later.
+  ax1.grid(b=False)
+</pre></div>
+</div>
+<img alt="../_images/0a82d7684ac2acda1aee5efc7852176c33d696a6a7ceeefc4aa1e7abc845c143.png" src="../_images/0a82d7684ac2acda1aee5efc7852176c33d696a6a7ceeefc4aa1e7abc845c143.png" />
+<img alt="../_images/245ef82448e0916d151b1313f963eb9bc0d60119e58a9d1ef99463d539215aaf.png" src="../_images/245ef82448e0916d151b1313f963eb9bc0d60119e58a9d1ef99463d539215aaf.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/root/venv/lib/python3.9/site-packages/missingno/missingno.py:73: MatplotlibDeprecationWarning: The &#39;b&#39; parameter of grid() has been renamed &#39;visible&#39; since Matplotlib 3.5; support for the old name will be dropped two minor releases later.
+  ax0.grid(b=False)
+/root/venv/lib/python3.9/site-packages/missingno/missingno.py:142: MatplotlibDeprecationWarning: The &#39;b&#39; parameter of grid() has been renamed &#39;visible&#39; since Matplotlib 3.5; support for the old name will be dropped two minor releases later.
+  ax1.grid(b=False)
+</pre></div>
+</div>
+<img alt="../_images/84302e5baba86e865c03e5998b227de0061677a68182eda3b4d11f2570234303.png" src="../_images/84302e5baba86e865c03e5998b227de0061677a68182eda3b4d11f2570234303.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="consideracion-y-evaluacion-de-los-distintos-tipos-de-valores-faltantes">
+<h2>Consideración y evaluación de los distintos tipos de valores faltantes<a class="headerlink" href="#consideracion-y-evaluacion-de-los-distintos-tipos-de-valores-faltantes" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="../_images/missing_data_action.jpeg" /></p>
+</section>
+<section id="evaluacion-del-mecanismo-de-valores-faltantes-por-prueba-de-t-test">
+<h2>Evaluación del mecanismo de valores faltantes por prueba de <em>t-test</em><a class="headerlink" href="#evaluacion-del-mecanismo-de-valores-faltantes-por-prueba-de-t-test" title="Permalink to this heading">#</a></h2>
+<div class="alert alert-info">
+    <b style="font-size: 1.5em;">📘 Información</b>
+    <p>
+<code>two-sided</code>: las <b>medias</b> de las distribuciones subyacentes a las muestras son <b>desiguales</b>.<br>
+<code>less</code>: la <b>media</b> de la distribución subyacente a la <b>primera</b> muestra es <b>menor</b> que la media de la distribución subyacente a la <b>segunda</b> muestra.<br>
+<code>greater</code>: la <b>media</b> de la distribución subyacente a la <b>primera</b> muestra es <b>mayor</b> que la media de la distribución subyacente a la <b>segunda</b> muestra.<br>
+    </p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">female_weight</span><span class="p">,</span> <span class="n">male_weight</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">transform_column</span><span class="p">(</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span>
+        <span class="n">elementwise</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">weight</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Female&quot;</span><span class="p">),</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;Male&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Ahora se hace una prueba estadistica para determinar si hay o no diferencia en la presencia</span>
+<span class="c1"># o ausencia de valores de peso</span>
+
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">female_weight</span><span class="p">,</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">male_weight</span><span class="p">,</span>
+    <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;two-sided&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ttest_indResult(statistic=-0.3621032192538131, pvalue=0.7172855918077239)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dado que pvalue &lt; 0.05, no se rechaza la hipotesis nula.</p>
+<p>No existe diferencia estadistica entre los valores faltantes</p>
+<p>Los datos entonces no estan perdidos al azar entre hombres y mujeres</p>
+</section>
+<section id="tratamiento-de-variables-categoricas-para-imputacion-de-valores-faltantes">
+<h2>Tratamiento de variables categóricas para imputación de valores faltantes<a class="headerlink" href="#tratamiento-de-variables-categoricas-para-imputacion-de-valores-faltantes" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Primero se realiza una copia del dataframe original</span>
+<span class="n">nhanes_transformed_df</span> <span class="o">=</span> <span class="n">nhanes_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="codificacion-ordinal">
+<h3>Codificación ordinal<a class="headerlink" href="#codificacion-ordinal" title="Permalink to this heading">#</a></h3>
+<div class="alert alert-info">
+    <b style="font-size: 1.5em;">📘 Información</b>
+    <p>
+    Una codificación ordinal <b>implica</b> mapear cada etiqueta (categoría) única a un valor entero. A su vez, la codificación ordinal también es conocida como codificación entera.
+    </p>
+</div><section id="ejemplo">
+<h4>Ejemplo<a class="headerlink" href="#ejemplo" title="Permalink to this heading">#</a></h4>
+<p>Dado un conjunto de datos con dos características, encontraremos los valores únicos por cataracterística y los transformaremos utilizando una codificación ordinal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">OrdinalEncoder</span><span class="p">()</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Male&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Female&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Female&quot;</span><span class="p">]]</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;Male&#39;], [&#39;Female&#39;], [&#39;Female&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.],
+       [0.],
+       [0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span><span class="o">.</span><span class="n">categories_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([&#39;Female&#39;, &#39;Male&#39;], dtype=object)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encoder</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&#39;Male&#39;],
+       [&#39;Female&#39;],
+       [&#39;Female&#39;]], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="aplicando-la-codificacion-ordinal-a-todas-tus-variables-categoricas">
+<h4>Aplicando la codificación ordinal a todas tus variables categóricas<a class="headerlink" href="#aplicando-la-codificacion-ordinal-a-todas-tus-variables-categoricas" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">categorical_columns</span> <span class="o">=</span> <span class="n">nhanes_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">categorical_transformer</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">compose</span><span class="o">.</span><span class="n">make_column_transformer</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">OrdinalEncoder</span><span class="p">(),</span> <span class="n">categorical_columns</span><span class="p">),</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span>
+    <span class="c1">#aqui le dices que no modifique las variables que no son categoricas</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_transformed_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">categorical_transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">nhanes_df</span><span class="p">),</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">categorical_transformer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">nhanes_df</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;ordinalencoder__&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;remainder__&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_transformed_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="one-hot-encoding">
+<h3><em>One Hot Encoding</em><a class="headerlink" href="#one-hot-encoding" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_transformed_df2</span> <span class="o">=</span> <span class="n">nhanes_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pandas-get-dummies-vs-skelearn-preprocessing-onehotencoder">
+<h3><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code> vs <code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code><a class="headerlink" href="#pandas-get-dummies-vs-skelearn-preprocessing-onehotencoder" title="Permalink to this heading">#</a></h3>
+<section id="pandas-get-dummies">
+<h4><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code><a class="headerlink" href="#pandas-get-dummies" title="Permalink to this heading">#</a></h4>
+<p><em><strong>pandas.get_dummies()</strong> tiene desventajas comparado con <strong>sklearn.preprocessing.onehotencoder()</strong>, estas son:</em></p>
+<ul class="simple">
+<li><p><em>No sabe lidiar con valores nulos</em></p></li>
+<li><p><em>Si no se seleccionan todas las columnas, puede que no se detecten todas las categorias</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_transformed_df2</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;general_health_condition&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition_Excellent</th>
+      <th>general_health_condition_Fair or</th>
+      <th>general_health_condition_Good</th>
+      <th>general_health_condition_Poor?</th>
+      <th>general_health_condition_Very good</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="skelearn-preprocessing-onehotencoder">
+<h4><code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code><a class="headerlink" href="#skelearn-preprocessing-onehotencoder" title="Permalink to this heading">#</a></h4>
+<p><em>Esta opcion tiene  la ventaja que va a detectar automaticamente todas las categorias</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformer</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">compose</span><span class="o">.</span><span class="n">make_column_transformer</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">OrdinalEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">OneHotEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;general_health_condition&quot;</span><span class="p">]),</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_transformed_df2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">nhanes_df</span><span class="p">),</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">nhanes_df</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;ordinalencoder__&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;remainder__&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_columns</span><span class="p">(</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;onehotencoder__&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_transformed_df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>general_health_condition_Excellent</th>
+      <th>general_health_condition_Fair or</th>
+      <th>general_health_condition_Good</th>
+      <th>general_health_condition_Poor?</th>
+      <th>general_health_condition_Very good</th>
+      <th>general_health_condition_nan</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 13 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">transformer</span>
+    <span class="o">.</span><span class="n">named_transformers_</span>
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;onehotencoder&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">categories_</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([&#39;Excellent&#39;, &#39;Fair or&#39;, &#39;Good&#39;, &#39;Poor?&#39;, &#39;Very good&#39;, nan],
+       dtype=object)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">transformer</span>
+    <span class="o">.</span><span class="n">named_transformers_</span>
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;onehotencoder&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&#39;Good&#39;]], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tipos-de-imputacion-de-valores-faltantes">
+<h1>Tipos de imputación de valores faltantes<a class="headerlink" href="#tipos-de-imputacion-de-valores-faltantes" title="Permalink to this heading">#</a></h1>
+<p><img alt="" src="../_images/imputation_methods.png" /></p>
+<section id="imputacion-de-un-unico-valor-media-mediana-moda">
+<h2>Imputación de un único valor (media, mediana, moda)<a class="headerlink" href="#imputacion-de-un-unico-valor-media-mediana-moda" title="Permalink to this heading">#</a></h2>
+<section id="media">
+<h3>Media<a class="headerlink" href="#media" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="c1"># janitor</span>
+    <span class="o">.</span><span class="n">transform_column</span><span class="p">(</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+        <span class="n">elementwise</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+      <th>general_health_condition</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+      <th>gender</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>63.00000</td>
+      <td>165.0</td>
+      <td>Good</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0</td>
+      <td>66.0</td>
+      <td>Female</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>68.00000</td>
+      <td>145.0</td>
+      <td>Very good</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0</td>
+      <td>18.0</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>66.25656</td>
+      <td>NaN</td>
+      <td>Good</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0</td>
+      <td>13.0</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>62.00000</td>
+      <td>200.0</td>
+      <td>NaN</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0</td>
+      <td>75.0</td>
+      <td>Female</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>69.00000</td>
+      <td>142.0</td>
+      <td>Very good</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0</td>
+      <td>56.0</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>72.00000</td>
+      <td>180.0</td>
+      <td>Excellent</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0</td>
+      <td>33.0</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>65.00000</td>
+      <td>218.0</td>
+      <td>Fair or</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0</td>
+      <td>42.0</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>66.00000</td>
+      <td>150.0</td>
+      <td>Good</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0</td>
+      <td>41.0</td>
+      <td>Female</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>66.25656</td>
+      <td>NaN</td>
+      <td>Very good</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0</td>
+      <td>14.0</td>
+      <td>Female</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>69.00000</td>
+      <td>250.0</td>
+      <td>Good</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0</td>
+      <td>38.0</td>
+      <td>Male</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">bind_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_imp&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;height&#39;, ylabel=&#39;weight&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/1f40e564fd9eeb2eb0042250c419b94358498264bb9287c3dc0b4fa5c940bf9d.png" src="../_images/1f40e564fd9eeb2eb0042250c419b94358498264bb9287c3dc0b4fa5c940bf9d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">bind_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_imp&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="n">show_marginal</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.JointGrid at 0x7f756fdf28b0&gt;
+</pre></div>
+</div>
+<img alt="../_images/936946e4d2693fb21b52243620b2f11f4bd700222de25a61ffd96d6f65c2f5ed.png" src="../_images/936946e4d2693fb21b52243620b2f11f4bd700222de25a61ffd96d6f65c2f5ed.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="imputacion-por-llenado-hacia-atras-e-imputacion-por-llenado-hacia-adelante">
+<h2>Imputación por llenado hacia atrás e imputación por llenado hacia adelante<a class="headerlink" href="#imputacion-por-llenado-hacia-atras-e-imputacion-por-llenado-hacia-adelante" title="Permalink to this heading">#</a></h2>
+<section id="fillna-vs-ffill-o-bfill">
+<h3><code class="docutils literal notranslate"><span class="pre">fillna()</span></code> vs <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code><a class="headerlink" href="#fillna-vs-ffill-o-bfill" title="Permalink to this heading">#</a></h3>
+<section id="forwardfill">
+<h4>Forwardfill<a class="headerlink" href="#forwardfill" title="Permalink to this heading">#</a></h4>
+<p>Imputa el dato de la fila anterior en nuestro missing value</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># .fillna(method = &quot;ffill&quot;)</span>
+    <span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>63.0</td>
+      <td>165.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>68.0</td>
+      <td>145.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>68.0</td>
+      <td>145.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>62.0</td>
+      <td>200.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>69.0</td>
+      <td>142.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>72.0</td>
+      <td>180.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>65.0</td>
+      <td>218.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>66.0</td>
+      <td>150.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>66.0</td>
+      <td>150.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>69.0</td>
+      <td>250.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 2 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="backfill">
+<h4>Backfill<a class="headerlink" href="#backfill" title="Permalink to this heading">#</a></h4>
+<p>Imputa el dato de la fila posterior en nuestro missing value</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># .fillna(method = &quot;bfill&quot;)</span>
+    <span class="o">.</span><span class="n">bfill</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>63.0</td>
+      <td>165.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>68.0</td>
+      <td>145.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>62.0</td>
+      <td>200.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>62.0</td>
+      <td>200.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>69.0</td>
+      <td>142.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>72.0</td>
+      <td>180.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>65.0</td>
+      <td>218.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>66.0</td>
+      <td>150.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>69.0</td>
+      <td>250.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>69.0</td>
+      <td>250.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 2 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="recomendaciones-al-imputar-valores-utilizando-ffill-o-bfill">
+<h4>Recomendaciones al imputar valores utilizando <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code><a class="headerlink" href="#recomendaciones-al-imputar-valores-utilizando-ffill-o-bfill" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>Imputación dentro de dominios e imputación a través de variables correlacionadas</p>
+</div></blockquote>
+<p><em>Se recomienda organizar por grupos similares para que no se imputen datos aleatoriamente, sino que el dato que se va a imputar tenga sentido</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;general_health_condition&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;general_health_condition&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+        <span class="n">ascending</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">transform_column</span><span class="p">(</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ffill</span><span class="p">(),</span>
+        <span class="n">elementwise</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+      <th>gender</th>
+      <th>diabetes</th>
+      <th>general_health_condition</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>94421.0</th>
+      <td>56.0</td>
+      <td>115.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>94187.0</th>
+      <td>59.0</td>
+      <td>130.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>95289.0</th>
+      <td>59.0</td>
+      <td>162.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>97967.0</th>
+      <td>59.0</td>
+      <td>130.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>99125.0</th>
+      <td>59.0</td>
+      <td>105.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>96561.0</th>
+      <td>74.0</td>
+      <td>290.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>96954.0</th>
+      <td>NaN</td>
+      <td>175.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>97267.0</th>
+      <td>NaN</td>
+      <td>175.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>97856.0</th>
+      <td>NaN</td>
+      <td>175.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>98317.0</th>
+      <td>NaN</td>
+      <td>175.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;general_health_condition&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;diabetes&#39;</span><span class="p">,</span><span class="s1">&#39;general_health_condition&#39;</span><span class="p">,</span><span class="s1">&#39;weight&#39;</span><span class="p">],</span>
+        <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;general_health_condition&quot;</span><span class="p">],</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ffill</span><span class="p">())</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1384/909901090.py:2: FutureWarning: Not prepending group keys to the result index of transform-like apply. In the future, the group keys will be included in the index, regardless of whether the applied function returns a like-indexed object.
+To preserve the previous behavior, use
+
+	&gt;&gt;&gt; .groupby(..., group_keys=False)
+
+To adopt the future behavior and silence this warning, use 
+
+	&gt;&gt;&gt; .groupby(..., group_keys=True)
+  nhanes_df
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+      <th>gender</th>
+      <th>diabetes</th>
+      <th>general_health_condition</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>94195.0</th>
+      <td>63.0</td>
+      <td>90.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>95793.0</th>
+      <td>61.0</td>
+      <td>96.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>101420.0</th>
+      <td>59.0</td>
+      <td>98.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>94148.0</th>
+      <td>65.0</td>
+      <td>100.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>102062.0</th>
+      <td>62.0</td>
+      <td>100.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>96561.0</th>
+      <td>74.0</td>
+      <td>290.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>96869.0</th>
+      <td>72.0</td>
+      <td>298.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>97267.0</th>
+      <td>72.0</td>
+      <td>298.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>97856.0</th>
+      <td>72.0</td>
+      <td>298.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>98317.0</th>
+      <td>72.0</td>
+      <td>298.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="imputacion-por-interpolacion">
+<h2>Imputación por interpolación<a class="headerlink" href="#imputacion-por-interpolacion" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">airquality_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#313638&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/06cdefbfc49f9859a0c72c6482dce31d586443ec141dea781d7922b3b618dee0.png" src="../_images/06cdefbfc49f9859a0c72c6482dce31d586443ec141dea781d7922b3b618dee0.png" />
+</div>
+</div>
+<section id="visualizando-con-ffill">
+<h3>Visualizando con ffill<a class="headerlink" href="#visualizando-con-ffill" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span>
+    <span class="n">airquality_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">6</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">),</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#313638&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;AxesSubplot: xlabel=&#39;date&#39;&gt;, &lt;AxesSubplot: xlabel=&#39;date&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/4d4cded0354aa199493e9fc28759e9b2d3ad15e5e28868c8cd0ac1b43006121d.png" src="../_images/4d4cded0354aa199493e9fc28759e9b2d3ad15e5e28868c8cd0ac1b43006121d.png" />
+</div>
+</div>
+</section>
+<section id="visualizando-con-bfill">
+<h3>Visualizando con bfill<a class="headerlink" href="#visualizando-con-bfill" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span>
+    <span class="n">airquality_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">6</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">),</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#313638&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;AxesSubplot: xlabel=&#39;date&#39;&gt;, &lt;AxesSubplot: xlabel=&#39;date&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/6965c7ecd8a29ec70341a96d5c477813bac89bfa168dd0a037554409092963cd.png" src="../_images/6965c7ecd8a29ec70341a96d5c477813bac89bfa168dd0a037554409092963cd.png" />
+</div>
+</div>
+</section>
+<section id="visualizando-con-bfill-o-ffill-con-valores-mas-cercanos">
+<h3>Visualizando con bfill o ffill con valores mas cercanos<a class="headerlink" href="#visualizando-con-bfill-o-ffill-con-valores-mas-cercanos" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span>
+    <span class="n">airquality_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;nearest&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">6</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">),</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#313638&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;AxesSubplot: xlabel=&#39;date&#39;&gt;, &lt;AxesSubplot: xlabel=&#39;date&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/a5dcc5a14176f1eb6376592fe6d9c159031f58eba4848a142a2c0b11c1e14239.png" src="../_images/a5dcc5a14176f1eb6376592fe6d9c159031f58eba4848a142a2c0b11c1e14239.png" />
+</div>
+</div>
+</section>
+<section id="visualizando-valores-interpolados">
+<h3>Visualizando valores interpolados<a class="headerlink" href="#visualizando-valores-interpolados" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span>
+    <span class="n">airquality_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;ozone&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">6</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">),</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#313638&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;AxesSubplot: xlabel=&#39;date&#39;&gt;, &lt;AxesSubplot: xlabel=&#39;date&#39;&gt;)
+</pre></div>
+</div>
+<img alt="../_images/71e292d0597e5eda5b14546862186b139b989f2565bd88f99323680d2163d353.png" src="../_images/71e292d0597e5eda5b14546862186b139b989f2565bd88f99323680d2163d353.png" />
+</div>
+</div>
+<p><em>Ahora para asignar esos valores a la columna:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airquality_df</span><span class="p">[</span><span class="s2">&quot;ozone&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airquality_df</span><span class="o">.</span><span class="n">ozone</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airquality_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ozone</th>
+      <th>solar_r</th>
+      <th>wind</th>
+      <th>temp</th>
+      <th>month</th>
+      <th>day</th>
+      <th>year</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1973-05-01</th>
+      <td>41.0</td>
+      <td>190.0</td>
+      <td>7.4</td>
+      <td>67</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-02</th>
+      <td>36.0</td>
+      <td>118.0</td>
+      <td>8.0</td>
+      <td>72</td>
+      <td>5</td>
+      <td>2</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-03</th>
+      <td>12.0</td>
+      <td>149.0</td>
+      <td>12.6</td>
+      <td>74</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-04</th>
+      <td>18.0</td>
+      <td>313.0</td>
+      <td>11.5</td>
+      <td>62</td>
+      <td>5</td>
+      <td>4</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-05-05</th>
+      <td>23.0</td>
+      <td>NaN</td>
+      <td>14.3</td>
+      <td>56</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1973-09-26</th>
+      <td>30.0</td>
+      <td>193.0</td>
+      <td>6.9</td>
+      <td>70</td>
+      <td>9</td>
+      <td>26</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-27</th>
+      <td>22.0</td>
+      <td>145.0</td>
+      <td>13.2</td>
+      <td>77</td>
+      <td>9</td>
+      <td>27</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-28</th>
+      <td>14.0</td>
+      <td>191.0</td>
+      <td>14.3</td>
+      <td>75</td>
+      <td>9</td>
+      <td>28</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-29</th>
+      <td>18.0</td>
+      <td>131.0</td>
+      <td>8.0</td>
+      <td>76</td>
+      <td>9</td>
+      <td>29</td>
+      <td>1973</td>
+    </tr>
+    <tr>
+      <th>1973-09-30</th>
+      <td>20.0</td>
+      <td>223.0</td>
+      <td>11.5</td>
+      <td>68</td>
+      <td>9</td>
+      <td>30</td>
+      <td>1973</td>
+    </tr>
+  </tbody>
+</table>
+<p>153 rows × 7 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="imputacion-por-algoritmo-de-vecinos-mas-cercanos-knn">
+<h2>Imputación por algoritmo de vecinos más cercanos (KNN)<a class="headerlink" href="#imputacion-por-algoritmo-de-vecinos-mas-cercanos-knn" title="Permalink to this heading">#</a></h2>
+<p><em>K nearest neighbors (KNN) es el algritmo mas utilizado de imputacion</em></p>
+<p><em>Resumen de métodos de distancia:</em></p>
+<ul class="simple">
+<li><p><em>Euclidiana: Útil para variables numéricas</em></p></li>
+<li><p><em>Manhattan: Útil paa variables tipo factor</em></p></li>
+<li><p><em>Hamming: Útil para variables categóricas</em></p></li>
+<li><p><em>Gower: Útil para conjuntos de datos con variables mixtas</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_transformed_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<section id="knn-algorithm">
+<h3>KNN algorithm<a class="headerlink" href="#knn-algorithm" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_imputer</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">impute</span><span class="o">.</span><span class="n">KNNImputer</span><span class="p">()</span>
+
+<span class="c1">#copia del df original</span>
+<span class="n">nhanes_df_knn</span> <span class="o">=</span> <span class="n">nhanes_transformed_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">nhanes_df_knn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">knn_imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">nhanes_transformed_df</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+<span class="n">nhanes_df_knn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>130.0</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>71.0</td>
+      <td>159.0</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">nhanes_df_knn</span><span class="p">,</span>
+            <span class="n">nhanes_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">create_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_imp&quot;</span><span class="p">,</span> <span class="n">only_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+      <th>height_imp</th>
+      <th>weight_imp</th>
+      <th>general_health_condition_imp</th>
+      <th>total_cholesterol_imp</th>
+      <th>pulse_imp</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>130.0</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>71.0</td>
+      <td>159.0</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 13 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">nhanes_df_knn</span><span class="p">,</span>
+            <span class="n">nhanes_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">create_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_imp&quot;</span><span class="p">,</span> <span class="n">only_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;height&#39;, ylabel=&#39;weight&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/f26bce62af0a569d9ebe6e775aeab1c2e42c2a7c59a96efd4597510e6f5b43e3.png" src="../_images/f26bce62af0a569d9ebe6e775aeab1c2e42c2a7c59a96efd4597510e6f5b43e3.png" />
+</div>
+</div>
+</section>
+<section id="ordenamiento-por-cantidad-de-variables-faltantes">
+<h3>Ordenamiento por cantidad de variables faltantes<a class="headerlink" href="#ordenamiento-por-cantidad-de-variables-faltantes" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_imputer</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">impute</span><span class="o">.</span><span class="n">KNNImputer</span><span class="p">()</span>
+
+<span class="c1">#copia del df original</span>
+<span class="n">nhanes_df_knn</span> <span class="o">=</span> <span class="n">nhanes_transformed_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">sort_variables_by_missingness</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">nhanes_df_knn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">knn_imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">nhanes_transformed_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">sort_variables_by_missingness</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+<span class="n">nhanes_df_knn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>diabetes</th>
+      <th>age</th>
+      <th>pulse</th>
+      <th>total_cholesterol</th>
+      <th>general_health_condition</th>
+      <th>weight</th>
+      <th>height</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>52.0</td>
+      <td>157.0</td>
+      <td>2.0</td>
+      <td>165.0</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>82.0</td>
+      <td>148.0</td>
+      <td>4.0</td>
+      <td>145.0</td>
+      <td>68.0</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>100.0</td>
+      <td>189.0</td>
+      <td>2.0</td>
+      <td>130.0</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+      <td>74.0</td>
+      <td>176.0</td>
+      <td>2.0</td>
+      <td>200.0</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+      <td>62.0</td>
+      <td>238.0</td>
+      <td>4.0</td>
+      <td>142.0</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+      <td>96.0</td>
+      <td>201.0</td>
+      <td>0.0</td>
+      <td>180.0</td>
+      <td>72.0</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>78.0</td>
+      <td>182.0</td>
+      <td>1.0</td>
+      <td>218.0</td>
+      <td>65.0</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+      <td>78.0</td>
+      <td>172.0</td>
+      <td>2.0</td>
+      <td>150.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>74.0</td>
+      <td>150.0</td>
+      <td>4.0</td>
+      <td>159.0</td>
+      <td>71.0</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>76.0</td>
+      <td>163.0</td>
+      <td>2.0</td>
+      <td>250.0</td>
+      <td>69.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">nhanes_df_knn</span><span class="p">,</span>
+            <span class="n">nhanes_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">create_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_imp&quot;</span><span class="p">,</span> <span class="n">only_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;height&#39;, ylabel=&#39;weight&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/f26bce62af0a569d9ebe6e775aeab1c2e42c2a7c59a96efd4597510e6f5b43e3.png" src="../_images/f26bce62af0a569d9ebe6e775aeab1c2e42c2a7c59a96efd4597510e6f5b43e3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="imputacion-basada-en-modelos">
+<h2>Imputación basada en modelos<a class="headerlink" href="#imputacion-basada-en-modelos" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_model_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">nhanes_df</span>
+    <span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">transform_column</span><span class="p">(</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ffill</span><span class="p">(),</span>
+        <span class="n">elementwise</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">bind_shadow_matrix</span><span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_imp&quot;</span><span class="p">,</span>
+        <span class="n">only_missing</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_model_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>height_imp</th>
+      <th>weight_imp</th>
+      <th>gender_imp</th>
+      <th>age_imp</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>99970.0</th>
+      <td>62.0</td>
+      <td>72.0</td>
+      <td>Male</td>
+      <td>16.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>97877.0</th>
+      <td>50.0</td>
+      <td>80.0</td>
+      <td>Female</td>
+      <td>29.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>96451.0</th>
+      <td>59.0</td>
+      <td>82.0</td>
+      <td>Female</td>
+      <td>80.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>97730.0</th>
+      <td>62.0</td>
+      <td>82.0</td>
+      <td>Female</td>
+      <td>19.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>99828.0</th>
+      <td>62.0</td>
+      <td>85.0</td>
+      <td>Female</td>
+      <td>16.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102915.0</th>
+      <td>NaN</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102926.0</th>
+      <td>NaN</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>15.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102941.0</th>
+      <td>NaN</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102945.0</th>
+      <td>NaN</td>
+      <td>484.0</td>
+      <td>Male</td>
+      <td>15.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>NaN</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">height_ols</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">nhanes_model_df</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;height ~ weight + age&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ols_imputed_values</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">nhanes_model_df</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">height_ols</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">ols_imputed_values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SEQN
+100246.0    64.0
+101209.0    64.0
+102766.0    64.0
+102509.0    64.0
+96900.0     65.0
+            ... 
+102915.0    75.0
+102926.0    75.0
+102941.0    75.0
+102945.0    75.0
+102955.0    75.0
+Length: 1669, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_model_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes_model_df</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ols_imputed_values</span>
+<span class="n">nhanes_model_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>weight</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>height_imp</th>
+      <th>weight_imp</th>
+      <th>gender_imp</th>
+      <th>age_imp</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>99970.0</th>
+      <td>62.0</td>
+      <td>72.0</td>
+      <td>Male</td>
+      <td>16.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>97877.0</th>
+      <td>50.0</td>
+      <td>80.0</td>
+      <td>Female</td>
+      <td>29.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>96451.0</th>
+      <td>59.0</td>
+      <td>82.0</td>
+      <td>Female</td>
+      <td>80.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>97730.0</th>
+      <td>62.0</td>
+      <td>82.0</td>
+      <td>Female</td>
+      <td>19.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>99828.0</th>
+      <td>62.0</td>
+      <td>85.0</td>
+      <td>Female</td>
+      <td>16.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102915.0</th>
+      <td>75.0</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102926.0</th>
+      <td>75.0</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>15.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102941.0</th>
+      <td>75.0</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102945.0</th>
+      <td>75.0</td>
+      <td>484.0</td>
+      <td>Male</td>
+      <td>15.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>75.0</td>
+      <td>484.0</td>
+      <td>Female</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">nhanes_model_df</span>
+    <span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;weight&#39;, ylabel=&#39;height&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/f06d6c81ceea57bcac4436d8bd41709356f34c66cda42f275ca2d6b812e7f243.png" src="../_images/f06d6c81ceea57bcac4436d8bd41709356f34c66cda42f275ca2d6b812e7f243.png" />
+</div>
+</div>
+</section>
+<section id="imputaciones-multiples-por-ecuaciones-encadenadas-mice">
+<h2>Imputaciones Múltiples por Ecuaciones Encadenadas (MICE)<a class="headerlink" href="#imputaciones-multiples-por-ecuaciones-encadenadas-mice" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mice_imputer</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">impute</span><span class="o">.</span><span class="n">IterativeImputer</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">BayesianRidge</span><span class="p">(),</span>
+    <span class="n">initial_strategy</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+    <span class="n">imputation_order</span><span class="o">=</span><span class="s2">&quot;ascending&quot;</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_mice_df</span> <span class="o">=</span> <span class="n">nhanes_transformed_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">nhanes_mice_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">mice_imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">nhanes_transformed_df</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+
+<span class="n">nhanes_mice_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">nhanes_mice_df</span><span class="p">,</span>
+        <span class="n">nhanes_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">create_shadow_matrix</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_imp&quot;</span><span class="p">)</span>
+    <span class="p">],</span>    
+    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_mice_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+      <th>height_imp</th>
+      <th>weight_imp</th>
+      <th>general_health_condition_imp</th>
+      <th>total_cholesterol_imp</th>
+      <th>pulse_imp</th>
+      <th>diabetes_imp</th>
+      <th>age_imp</th>
+      <th>gender_imp</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>70.0</td>
+      <td>200.0</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>64.0</td>
+      <td>159.0</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 16 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_mice_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">scatter_imputation_plot</span><span class="p">(</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;height&#39;, ylabel=&#39;weight&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/00643aca72aa70d7e3687e281104e52561cfbeee1839b9343164d27b98458933.png" src="../_images/00643aca72aa70d7e3687e281104e52561cfbeee1839b9343164d27b98458933.png" />
+</div>
+</div>
+</section>
+<section id="transformacion-inversa-de-los-datos">
+<h2>Transformación inversa de los datos<a class="headerlink" href="#transformacion-inversa-de-los-datos" title="Permalink to this heading">#</a></h2>
+<p><em>Deshacer la transformacion en dummy</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_imputed_df</span> <span class="o">=</span> <span class="n">nhanes_mice_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_imputed_df</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">categorical_transformer</span>
+    <span class="o">.</span><span class="n">named_transformers_</span>
+    <span class="o">.</span><span class="n">ordinalencoder</span>
+    <span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">nhanes_mice_df</span><span class="p">[</span><span class="n">categorical_columns</span><span class="p">]</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">nhanes_imputed_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>general_health_condition</th>
+      <th>gender</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>total_cholesterol</th>
+      <th>pulse</th>
+      <th>diabetes</th>
+      <th>age</th>
+      <th>height_imp</th>
+      <th>weight_imp</th>
+      <th>general_health_condition_imp</th>
+      <th>total_cholesterol_imp</th>
+      <th>pulse_imp</th>
+      <th>diabetes_imp</th>
+      <th>age_imp</th>
+      <th>gender_imp</th>
+    </tr>
+    <tr>
+      <th>SEQN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93705.0</th>
+      <td>Good</td>
+      <td>Female</td>
+      <td>63.0</td>
+      <td>165.0</td>
+      <td>157.0</td>
+      <td>52.0</td>
+      <td>0.0</td>
+      <td>66.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93706.0</th>
+      <td>Very good</td>
+      <td>Male</td>
+      <td>68.0</td>
+      <td>145.0</td>
+      <td>148.0</td>
+      <td>82.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93707.0</th>
+      <td>Good</td>
+      <td>Male</td>
+      <td>70.0</td>
+      <td>200.0</td>
+      <td>189.0</td>
+      <td>100.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93709.0</th>
+      <td>Good</td>
+      <td>Female</td>
+      <td>62.0</td>
+      <td>200.0</td>
+      <td>176.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>75.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>93711.0</th>
+      <td>Very good</td>
+      <td>Male</td>
+      <td>69.0</td>
+      <td>142.0</td>
+      <td>238.0</td>
+      <td>62.0</td>
+      <td>0.0</td>
+      <td>56.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>102949.0</th>
+      <td>Excellent</td>
+      <td>Male</td>
+      <td>72.0</td>
+      <td>180.0</td>
+      <td>201.0</td>
+      <td>96.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102953.0</th>
+      <td>Fair or</td>
+      <td>Male</td>
+      <td>65.0</td>
+      <td>218.0</td>
+      <td>182.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102954.0</th>
+      <td>Good</td>
+      <td>Female</td>
+      <td>66.0</td>
+      <td>150.0</td>
+      <td>172.0</td>
+      <td>78.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102955.0</th>
+      <td>Very good</td>
+      <td>Female</td>
+      <td>64.0</td>
+      <td>159.0</td>
+      <td>150.0</td>
+      <td>74.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>102956.0</th>
+      <td>Good</td>
+      <td>Male</td>
+      <td>69.0</td>
+      <td>250.0</td>
+      <td>163.0</td>
+      <td>76.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>7157 rows × 16 columns</p>
+</div></div></div>
+</div>
+<p><em>Comparativa de valores antes de imputacion con valores despues de imputacion</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_df</span><span class="o">.</span><span class="n">general_health_condition</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Good         2383
+Very good    1503
+Fair or      1130
+Excellent     612
+Poor?         169
+Name: general_health_condition, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_imputed_df</span><span class="o">.</span><span class="n">general_health_condition</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Good         3743
+Very good    1503
+Fair or      1130
+Excellent     612
+Poor?         169
+Name: general_health_condition, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Me quedan entonces valores faltantes?</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_imputed_df</span><span class="o">.</span><span class="n">missing</span><span class="o">.</span><span class="n">number_missing</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=b1c0ea21-568f-4a51-b8a9-f64bf5f251a7' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./8-1-Imputacion-de-datos-faltantes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../8-Deteccion-de-valores-faltantes/live-exploration-missing-values.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Manejo de Datos Faltantes: Detección</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../8-0-1-pandas-missing-extension/pandas-missing-extension.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Extensión de la API de Pandas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Manejo de Datos Faltantes: Imputación</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-ambiente-de-trabajo">Configuración de ambiente de trabajo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importar-librerias">Importar librerías</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importar-funciones-personalizadas">Importar funciones personalizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-el-aspecto-general-de-las-graficas-del-proyecto">Configurar el aspecto general de las gráficas del proyecto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-problema-de-trabajar-con-valores-faltantes">El problema de trabajar con valores faltantes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparando-datos-national-health-and-nutrition-examination-survey">Preparando datos: <em>National Health and Nutrition Examination Survey</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideracion-y-evaluacion-de-los-distintos-tipos-de-valores-faltantes">Consideración y evaluación de los distintos tipos de valores faltantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-del-mecanismo-de-valores-faltantes-por-prueba-de-t-test">Evaluación del mecanismo de valores faltantes por prueba de <em>t-test</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tratamiento-de-variables-categoricas-para-imputacion-de-valores-faltantes">Tratamiento de variables categóricas para imputación de valores faltantes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codificacion-ordinal">Codificación ordinal</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo">Ejemplo</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicando-la-codificacion-ordinal-a-todas-tus-variables-categoricas">Aplicando la codificación ordinal a todas tus variables categóricas</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding"><em>One Hot Encoding</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-get-dummies-vs-skelearn-preprocessing-onehotencoder"><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code> vs <code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-get-dummies"><code class="docutils literal notranslate"><span class="pre">pandas.get_dummies()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skelearn-preprocessing-onehotencoder"><code class="docutils literal notranslate"><span class="pre">skelearn.preprocessing.OneHotEncoder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-imputacion-de-valores-faltantes">Tipos de imputación de valores faltantes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-de-un-unico-valor-media-mediana-moda">Imputación de un único valor (media, mediana, moda)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#media">Media</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-llenado-hacia-atras-e-imputacion-por-llenado-hacia-adelante">Imputación por llenado hacia atrás e imputación por llenado hacia adelante</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fillna-vs-ffill-o-bfill"><code class="docutils literal notranslate"><span class="pre">fillna()</span></code> vs <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#forwardfill">Forwardfill</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#backfill">Backfill</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendaciones-al-imputar-valores-utilizando-ffill-o-bfill">Recomendaciones al imputar valores utilizando <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> o <code class="docutils literal notranslate"><span class="pre">bfill()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-interpolacion">Imputación por interpolación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-ffill">Visualizando con ffill</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-bfill">Visualizando con bfill</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-con-bfill-o-ffill-con-valores-mas-cercanos">Visualizando con bfill o ffill con valores mas cercanos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizando-valores-interpolados">Visualizando valores interpolados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-por-algoritmo-de-vecinos-mas-cercanos-knn">Imputación por algoritmo de vecinos más cercanos (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-algorithm">KNN algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordenamiento-por-cantidad-de-variables-faltantes">Ordenamiento por cantidad de variables faltantes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputacion-basada-en-modelos">Imputación basada en modelos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputaciones-multiples-por-ecuaciones-encadenadas-mice">Imputaciones Múltiples por Ecuaciones Encadenadas (MICE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformacion-inversa-de-los-datos">Transformación inversa de los datos</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

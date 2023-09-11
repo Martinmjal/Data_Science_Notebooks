@@ -1,0 +1,28 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Libraries for data manipulation
+    numbered: False
+    chapters:
+    - file: 1-Numpy/1_Numpy
+    - file: 2-Pandas/2_Pandas
+    - file: 3-Matplotlib/3_Matplotlib
+    - file: 4-Seaborn/Notebook 1
+  - caption: Math and Statistics Fundamentals
+    numbered: False
+    chapters:
+    - file: 5-Mathematical-Functions-for-data-science/Notebook 1
+    - file: 6-Statistics-For-Data-Science/Estadistica descriptiva
+    - file: 6-1-Algebra-Lineal-aplicada-a-Machine-Learning/contenido
+    - file: 6-2-Probabilidad/Notebook 1
+    - file: 6-3-Inferential-Statistics-and-Sampling/Notebook 1
+  - caption: Exploratory Data Analysis
+    numbered: False
+    chapters:
+    - file: 7-Exploratory-Data-Analysis-EDA/Notebook 1
+    - file: 8-Deteccion-de-valores-faltantes/live-exploration-missing-values
+    - file: 8-1-Imputacion-de-datos-faltantes/live-imputation-missing-values
+    - file: 8-0-1-pandas-missing-extension/pandas-missing-extension

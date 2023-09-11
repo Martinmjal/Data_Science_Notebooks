@@ -1,0 +1,1658 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Distribuciones de Probabilidad &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6-2-Probabilidad/Notebook 1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Inferential Statistics &amp; Sampling" href="../6-3-Inferential-Statistics-and-Sampling/Notebook%201.html" />
+    <link rel="prev" title="" href="../6-1-Algebra-Lineal-aplicada-a-Machine-Learning/contenido.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Libraries for data manipulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../1-Numpy/1_Numpy.html">Numpy</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../2-Pandas/2_Pandas.html">Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../3-Matplotlib/3_Matplotlib.html">Matplotlib</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../4-Seaborn/Notebook%201.html">Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Math and Statistics Fundamentals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../5-Mathematical-Functions-for-data-science/Notebook%201.html">Mathematical functions for data science &amp; artificial intelligence</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-Statistics-For-Data-Science/Estadistica%20descriptiva.html">Intro to Statistics for Data Science</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-1-Algebra-Lineal-aplicada-a-Machine-Learning/contenido.html"></a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Distribuciones de Probabilidad</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../6-3-Inferential-Statistics-and-Sampling/Notebook%201.html">Inferential Statistics &amp; Sampling</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exploratory Data Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../7-Exploratory-Data-Analysis-EDA/Notebook%201.html">Exploratory Data Analysis Basics</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../8-Deteccion-de-valores-faltantes/live-exploration-missing-values.html">Manejo de Datos Faltantes: Detección</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../8-1-Imputacion-de-datos-faltantes/live-imputation-missing-values.html">Manejo de Datos Faltantes: Imputación</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../8-0-1-pandas-missing-extension/pandas-missing-extension.html">Extensión de la API de Pandas</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F6-2-Probabilidad/Notebook 1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/6-2-Probabilidad/Notebook 1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Distribuciones de Probabilidad</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Distribuciones de Probabilidad</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-incertidumbre-en-ml">Fuentes de incertidumbre en ML</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribuciones-de-probabilidad-discretas">Distribuciones de probabilidad discretas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-bernoulli">Distribucion de Bernoulli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial">Distribucion Binomial</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-3-8">= <span class="math notranslate nohighlight">\(\frac{3}{8}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-en-python">Distribucion Binomial en Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-de-scipy">Distribucion binomial de scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulando-la-distribucion-binomial-con-numpy">Simulando la Distribucion Binomial Con Numpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-multinomial">Distribucion Multinomial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-poisson">Distribucion de Poisson</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos">Supuestos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-poisson-scipy">Distribucion de Poisson Scipy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulando-la-distribucion-de-poisson-con-numpy">Simulando la Distribucion de Poisson con Numpy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-geometrica">Distribucion Geometrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-hipergeometrica">Distribucion Hipergeometrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-negativa">Distribucion Binomial negativa</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribuciones-de-probabilidad-continua">Distribuciones de probabilidad continua</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-normal-gaussiana">Distribucion Normal (Gaussiana)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-normal-de-scipy">Distribucion normal de scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-exponencial">Distribucion Exponencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-paretto">Distribucion Paretto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-gamma">Distribucion Gamma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-beta">Distribucion Beta</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-estimar-una-distribucion-de-probabilidad">Como estimar una distribucion de probabilidad?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-parametrica">Estimacion parametrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-no-parametrica">Estimacion no parametrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">Maximum Likelihood Estimation (MLE)</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="distribuciones-de-probabilidad">
+<h1>Distribuciones de Probabilidad<a class="headerlink" href="#distribuciones-de-probabilidad" title="Permalink to this heading">#</a></h1>
+<section id="fuentes-de-incertidumbre-en-ml">
+<h2>Fuentes de incertidumbre en ML<a class="headerlink" href="#fuentes-de-incertidumbre-en-ml" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>datos</strong>: Incertidumbre proveniente del margen de error que tienen los instrumentos de medicion</p></li>
+<li><p><strong>atributos del modelo</strong>: Son variables que representan un subconjunto reducido de toda la realidad del problema. Ademas pueden posteriormente ser mas reducidas, sesgando mas el resultado</p></li>
+<li><p><strong>Arquitectura del modelo</strong>: Un modelo en mates es una representación simplificada de la realidad, lo cual hace que haya incertidumbre</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="distribuciones-de-probabilidad-discretas">
+<h1>Distribuciones de probabilidad discretas<a class="headerlink" href="#distribuciones-de-probabilidad-discretas" title="Permalink to this heading">#</a></h1>
+<section id="distribucion-de-bernoulli">
+<h2>Distribucion de Bernoulli<a class="headerlink" href="#distribucion-de-bernoulli" title="Permalink to this heading">#</a></h2>
+<p><em>Esta distribucion permite describir ocurrencias con variables binarias.</em></p>
+<p><em>Ej: Lanzamiento de una moneda</em></p>
+<ul class="simple">
+<li><p><em>La probabilidad de ocurrencia del primer evento es <strong>P</strong></em></p></li>
+<li><p><em>La probabilidad de ocurrencia del segundo evento es <strong>1 - P</strong></em></p></li>
+</ul>
+<img src="image-20221227-092744.png" alt="drawing" style="width:400px;"/></section>
+<section id="distribucion-binomial">
+<h2>Distribucion Binomial<a class="headerlink" href="#distribucion-binomial" title="Permalink to this heading">#</a></h2>
+<p>Cuando hay secuencias repetitivas de varios eventos binarios (o eventos de bernoulli) se genera otra distribucion. Conocida como la distribucion binomial.</p>
+<p><em>Ejemplo:</em></p>
+<p><em>Dados tres lanzamientos, cual es la probabilidad de obtener dos caras?</em></p>
+<p><em>en la imagen abajo se observa la respuesta</em></p>
+<img src="image-20221227-093411.png" alt="drawing" style="width:600px;"/>
+<ul class="simple">
+<li><p><em>Se observa que el espacio muestral arroja <strong>8 posibles resultados</strong>.</em></p></li>
+<li><p><em>Solo <strong>en 3 de esos 8 se obtienen dos caras</strong>.</em></p></li>
+</ul>
+<p>Ahora, si se quiere la probabilidad de obtener <strong>k caras</strong> dados <strong>n lanzamientos</strong>, la formula general es:</p>
+<p><span class="math notranslate nohighlight">\(P(k_{caras} | n_{lanzamientos} ) = P(k,n;p)\)</span></p>
+<p><em>es igual a:</em></p>
+<p><span class="math notranslate nohighlight">\(P(k,n;p) = \binom{n}{k}p^{k}(1-p)^{n-k}\)</span></p>
+<p><em>Recordar la formula de la combinatoria:</em></p>
+<p><span class="math notranslate nohighlight">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span></p>
+<p><em><strong>Por lo cual la formula final es:</strong></em></p>
+<p><span class="math notranslate nohighlight">\(P(k,n;p) = \frac{n!}{k!(n-k)!}p^{k}(1-p)^{n-k}\)</span></p>
+<p>donde k es el numero de caras, n es el numero de lanzamientos y p es la probabilidad del evento (1/2 para el caso de las monedas)</p>
+<p>Entonces, retomando el mismo calculo que se hizo previamente:</p>
+<p><em>Dados tres lanzamientos, cual es la probabilidad de obtener dos caras?</em></p>
+<p><em>Solucion:</em></p>
+<p><em>Recordemos que la formula general para la distribucion es:</em></p>
+<p><span class="math notranslate nohighlight">\(P(k,n;p) = \binom{n}{k}p^{k}(1-p)^{n-k}\)</span> = <span class="math notranslate nohighlight">\(\frac{n!}{k!(n-k)!}p^{k}(1-p)^{n-k}\)</span></p>
+<p><em>Al reemplazar los valores, se obtiene:</em></p>
+<p>=&gt; <span class="math notranslate nohighlight">\(P(2;3,\frac{1}{2})\)</span>
+= <span class="math notranslate nohighlight">\(\frac{3!}{2!(3-2)!}\frac{1}{2}^{2}(1-\frac{1}{2})^{3-2}\)</span>
+= <span class="math notranslate nohighlight">\((\frac{6}{2})(\frac{1}{4})(\frac{1}{2})\)</span></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="frac-3-8">
+<h1>= <span class="math notranslate nohighlight">\(\frac{3}{8}\)</span><a class="headerlink" href="#frac-3-8" title="Permalink to this heading">#</a></h1>
+<p><strong>Se observa que el resultado es el mismo</strong></p>
+<section id="distribucion-binomial-en-python">
+<h2>Distribucion Binomial en Python<a class="headerlink" href="#distribucion-binomial-en-python" title="Permalink to this heading">#</a></h2>
+<p><em>A continuacion se explican dos llibrerias que recrean una distribucion binomial,</em></p>
+<ul class="simple">
+<li><p><em><strong>Scipy</strong>, que calcula las probabilidades basado en la formula general de la distribucion (entrega datos teoricos):</em>
+<span class="math notranslate nohighlight">\(P(k,n;p) = \frac{n!}{k!(n-k)!}p^{k}(1-p)^{n-k}\)</span></p></li>
+<li><p><em><strong>Numpy</strong>, que recrea los experimentos con funciones aleatorias (entrega datos experimentales)</em></p></li>
+</ul>
+<p><strong>Pero antes de ir con las librerias, hagamoslo manual ;)</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">factorial</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Recordando la formula de la ecuacion:</em></p>
+<p><span class="math notranslate nohighlight">\(P(k,n;p) = \frac{n!}{k!(n-k)!}p^{k}(1-p)^{n-k}\)</span></p>
+<p><em>Hagamos una funcion que simule esta formula:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_binomial</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">))</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>y verificamos con el ejercicio que se resolvio manualmente arriba:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_binomial</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.375
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>dado que <span class="math notranslate nohighlight">\(3/8 = 0.375\)</span>, el resultado es correcto</em></p>
+</section>
+<section id="distribucion-binomial-de-scipy">
+<h2>Distribucion binomial de scipy<a class="headerlink" href="#distribucion-binomial-de-scipy" title="Permalink to this heading">#</a></h2>
+<p><em>Esta libreria permite construir la distribucion dado:</em></p>
+<p><em>- un numero de intentos</em>
+<em>- la probabilidad p</em></p>
+<p><em><strong>Se recrea el ejercicio:</strong></em></p>
+<ul class="simple">
+<li><p><em><strong>Al lanzar tres monedas.</strong></em></p></li>
+<li><p><em><strong>Cual es la posibilidad de obtener dos caras?</strong></em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
+
+<span class="c1"># Se define la distribucion, 3 experimentos, 0.5 probabilidad de exito</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Para obtener la probabilidad de tener 2 exitos uso el atributo <strong>.pmf()</strong> (probability mass function)</em></p>
+<p><em>especificando dos exitos</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3750000000000001
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Y se obtiene el mismo resultado <span class="math notranslate nohighlight">\(1/8\)</span>.</em></p>
+<p><em>Si se quiere ver la probabilidad de cada caso, podemos hacer el calculo:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">probabilities</span><span class="o">=</span><span class="p">[</span><span class="n">binom</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Para &quot;</span><span class="p">,</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot; de 3 eventos exitosos, la probabilidad de ocurrencia es &quot;</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Para &quot;</span><span class="p">,</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot; de 3 eventos exitosos, la probabilidad de ocurrencia es &quot;</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Para &quot;</span><span class="p">,</span><span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot; de 3 eventos exitosos, la probabilidad de ocurrencia es &quot;</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Para &quot;</span><span class="p">,</span><span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot; de 3 eventos exitosos, la probabilidad de ocurrencia es &quot;</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Para  0  de 3 eventos exitosos, la probabilidad de ocurrencia es  0.12499999999999997
+Para  1  de 3 eventos exitosos, la probabilidad de ocurrencia es  0.3750000000000001
+Para  2  de 3 eventos exitosos, la probabilidad de ocurrencia es  0.3750000000000001
+Para  3  de 3 eventos exitosos, la probabilidad de ocurrencia es  0.125
+</pre></div>
+</div>
+</div>
+</div>
+<p><em><strong>Se recrea otro ejercicio:</strong></em></p>
+<ul class="simple">
+<li><p><em><strong>Al lanzar tres monedas.</strong></em></p></li>
+<li><p><em><strong>Cual es la posibilidad de obtener DOS CARAS O MENOS?</strong></em></p></li>
+</ul>
+<p><em>Ahora, para obtener la probabilidad de tener 2 exitos o menos uso el atributo <strong>.cdf()</strong> (cumulative density function).</em></p>
+<ul class="simple">
+<li><p><em>A esto tambien se le llama <strong>Distribucion de probabilidad acumulada</strong></em></p></li>
+</ul>
+<p><em>Solucion:</em></p>
+<p><span class="math notranslate nohighlight">\(P(k \leq 2,n = 3, p=1/2)\)</span></p>
+<ul class="simple">
+<li><p><em>al hacerlo manualmente, el resultado es <span class="math notranslate nohighlight">\(7/8\)</span></em></p></li>
+<li><p><em>al hacerlo en python:</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se define la distribucion</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Se usa la distribucion de probabilidad acumulada .cdf(cumulative density funcion)</span>
+
+<span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.875
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>el resultado tambien es <span class="math notranslate nohighlight">\(7/8\)</span></em></p>
+</section>
+<section id="simulando-la-distribucion-binomial-con-numpy">
+<h2>Simulando la Distribucion Binomial Con Numpy<a class="headerlink" href="#simulando-la-distribucion-binomial-con-numpy" title="Permalink to this heading">#</a></h2>
+<p><em>A continuacion se hace una simulacion de secuencias con generadores aleatorios</em></p>
+<p><em>Se usa la funcion binomial de numpy, la cual reproduce el experimento aleatoriamente</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">binomial</span>   <span class="c1"># Random number generator based on the binomial distribution</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">binomial</span>   <span class="c1"># Random number generator based on the binomial distribution</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>El generador aleatorio de numpy genera resultados basado en:</em></p>
+<ul class="simple">
+<li><p><em>El numero de veces que se repite un experimento (n)</em></p></li>
+<li><p><em>la probabilidad de exito (p)</em></p></li>
+</ul>
+<p><em><strong>Ejemplo:</strong></em></p>
+<p><em>Experimento aleatorio, con 3 intentos y 50% de probabilidad de exito en cada intento</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="c1">#Imprime el resultado</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Explica el resultado</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El resultado indica, de&quot;</span><span class="p">,</span> <span class="n">n</span> <span class="p">,</span><span class="s2">&quot;intentos, obtuve&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;exitos&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+El resultado indica, de 3 intentos, obtuve 0 exitos
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Ahora generamos una funcion que tiene que reproducir el experimento multiples veces</em></p>
+<ul class="simple">
+<li><p><em>Analiza como se comporta a medida que el experimento se repite mas veces (n incrementa)</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">plot_binomial_seaborn</span><span class="p">(</span><span class="n">num_attempts</span><span class="p">):</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">attempts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_attempts</span><span class="p">):</span>
+        <span class="n">attempts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+
+    <span class="n">simulacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">attempts</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">attempts</span><span class="p">)</span>
+
+    <span class="n">teorica</span> <span class="o">=</span> <span class="p">[</span><span class="n">binom</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+
+    <span class="c1">#Data into dataframe</span>
+    <span class="n">resultado</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;values&quot;</span><span class="p">:</span><span class="n">values</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;probabilities&quot;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="n">simulacion</span><span class="p">)</span><span class="o">+</span><span class="n">teorica</span><span class="p">,</span>
+                <span class="s2">&quot;categoria&quot;</span><span class="p">:[</span><span class="s2">&quot;simulacion&quot;</span><span class="p">,</span><span class="s2">&quot;simulacion&quot;</span><span class="p">,</span><span class="s2">&quot;simulacion&quot;</span><span class="p">,</span><span class="s2">&quot;simulacion&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;valor teorico&quot;</span><span class="p">,</span><span class="s2">&quot;valor teorico&quot;</span><span class="p">,</span><span class="s2">&quot;valor teorico&quot;</span><span class="p">,</span><span class="s2">&quot;valor teorico&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+    <span class="n">Experimento</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultado</span><span class="p">)</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Experimento</span><span class="p">,</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;values&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;probabilities&quot;</span> <span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;categoria&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> experimentos&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_attempts</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Nota:</em>
+<em>np.unique(attempts, return_counts=True) retorna una lista que contiene dos numpy arrays</em>
+<em>np.unique(attempts, return_counts=True)<strong>[0]</strong> es cada posible escenario</em>
+<em>np.unique(attempts, return_counts=True)<strong>[1]</strong> es la probabilidad de ese escenario</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_binomial_seaborn</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plot_binomial_seaborn</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plot_binomial_seaborn</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b200de608de7771393a5d2d3077390222c61f5c6eb910b2fe957fae18e9fb99b.png" src="../_images/b200de608de7771393a5d2d3077390222c61f5c6eb910b2fe957fae18e9fb99b.png" />
+<img alt="../_images/fc0cef989f5f0338ac5563a62243484e119f5158d3f2ae08a7a434c0be30ac13.png" src="../_images/fc0cef989f5f0338ac5563a62243484e119f5158d3f2ae08a7a434c0be30ac13.png" />
+<img alt="../_images/d777c082848da1698e45a57b8647d6bf3f92510c554d07c165e3db202c006091.png" src="../_images/d777c082848da1698e45a57b8647d6bf3f92510c554d07c165e3db202c006091.png" />
+</div>
+</div>
+<p><em>Note que a medida que n incrementa, los <strong>resultados experimentales se aproximan mas a los resultados teoricos</strong></em></p>
+</section>
+<section id="distribucion-multinomial">
+<h2>Distribucion Multinomial<a class="headerlink" href="#distribucion-multinomial" title="Permalink to this heading">#</a></h2>
+<p><em>Es una distribucion que sigue la formula:</em></p>
+<p><img alt="Picture title" src="../_images/image-20221227-103857.png" /></p>
+</section>
+<section id="distribucion-de-poisson">
+<h2>Distribucion de Poisson<a class="headerlink" href="#distribucion-de-poisson" title="Permalink to this heading">#</a></h2>
+<p>Para que X sea una variable aleatoria con distribucon de Poisson:</p>
+<ul class="simple">
+<li><p>X representa el numero de veces que ocurre un evento durante un intervalo definido</p></li>
+</ul>
+<p><strong>La probabilidad de que un evento ocurra x veces en un invervalo de tiempo es:</strong></p>
+<p><span class="math notranslate nohighlight">\(P(X=x) = \frac{e^{-\mu}\mu^{x}}{x!}\)</span></p>
+<p><em>con <span class="math notranslate nohighlight">\( \mu \geq 0 \)</span></em></p>
+<p><em><strong>Ejemplo:</strong></em></p>
+<p>Un veterinario recibe en promedio <span class="math notranslate nohighlight">\(\mu\)</span> = 4 pacientes al dia, sabiendo que el numero de pacientes que llegan en un dia sigue una distribucion de poisson, calcula:</p>
+<ul class="simple">
+<li><p>la probabilidad de que lleguen 3 pacientes en un dia</p></li>
+<li><p>la probabilidad de que llegues 5 pacientes en un dia</p></li>
+</ul>
+<p><em><strong>Solucion:</strong></em></p>
+<ul class="simple">
+<li><p>Probabilidad de 3 pacientes:</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(P(X=3) = \frac{e^{-4}4^{3}}{3!} = 0.1954 = 19.54\)</span>%</p>
+<ul class="simple">
+<li><p>Probabilidad de 5 pacientes:</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(P(X=5) = \frac{e^{-4}4^{5}}{5!} = 0.1563 = 15.63\)</span>%</p>
+<section id="supuestos">
+<h3>Supuestos<a class="headerlink" href="#supuestos" title="Permalink to this heading">#</a></h3>
+<img src="image-20221228-072232.png" alt="drawing" style="width:600px;"/></section>
+<section id="distribucion-de-poisson-scipy">
+<h3>Distribucion de Poisson Scipy<a class="headerlink" href="#distribucion-de-poisson-scipy" title="Permalink to this heading">#</a></h3>
+<p><em>Esta libreria permite construir la distribucion dado:</em></p>
+<p><em>- un valor</em> <span class="math notranslate nohighlight">\(\mu\)</span> <em>Que representa la ocurrencia del evento en el intervalo</em></p>
+<p><em><strong>Se recrea el ejercicio del veterinario:</strong></em></p>
+<ul class="simple">
+<li><p><em><strong>en promedio llegan 4 perros en un dia, Cual es la posibilidad de que lleguen 3 perros en un dia?</strong></em></p></li>
+</ul>
+<p><em>Para obtener la probabilidad de tener 3 ocurrencias uso el atributo <strong>.pmf()</strong> (probability mass function)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">poisson</span>
+
+<span class="c1"># Se define la distribucion con lambda = 4</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">poisson</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Probabilidad de 3</span>
+<span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1953668148131645
+</pre></div>
+</div>
+</div>
+</div>
+<p><em><strong>Se recrea otro ejercicio:</strong></em></p>
+<ul class="simple">
+<li><p><em><strong>en promedio llegan 4 perros en un dia, cual es la probabilidad de que lleguen hasta 3 perros en un dia?</strong></em></p></li>
+</ul>
+<p><em>Ahora, para obtener la probabilidad de tener 3 eventos o menos, uso el atributo <strong>.cdf()</strong> (cumulative density function).</em></p>
+<ul class="simple">
+<li><p><em>A esto tambien se le llama <strong>Distribucion de probabilidad acumulada</strong></em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.43347012036670896
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Recuerda que la probabilidad de <strong>hasta 3</strong> es la <strong>suma de las probabilidades de 0,1,2,3</strong></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.43347012036670884
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulando-la-distribucion-de-poisson-con-numpy">
+<h3>Simulando la Distribucion de Poisson con Numpy<a class="headerlink" href="#simulando-la-distribucion-de-poisson-con-numpy" title="Permalink to this heading">#</a></h3>
+<p><em>La funcion <strong>poisson</strong> de <strong>np.random</strong> genera experimentos aleatorios con distribucion de Poisson.</em></p>
+<ul class="simple">
+<li><p><em>los parametros son el <strong>lambda</strong> y el <strong>tamano de la muestra</strong></em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">poisson</span>   <span class="c1"># Random number generator based on the poisson distribution</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parametros son el lambda y el tamano de la distribucion</span>
+<span class="k">def</span> <span class="nf">plot_poisson_seaborn</span><span class="p">(</span><span class="n">average</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">):</span>
+    
+    <span class="n">poissondist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">average</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span>
+
+    <span class="n">xvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">poissondist</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">simulacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">poissondist</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">poissondist</span><span class="p">)</span>
+
+    <span class="n">teorica</span> <span class="o">=</span> <span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">average</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">xvalues</span><span class="p">]</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Simulacion Dist. Poisson, n=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample_size</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xvalues</span><span class="p">,</span> <span class="n">simulacion</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Resultado Experimental, Lambda = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvalues</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xvalues</span><span class="p">,</span> <span class="n">teorica</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Resultado Teorico, Lambda = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">average</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvalues</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_poisson_seaborn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6dc73c61efa21dddafaf86eda498ecbe41fb2c92f4a4e1cde4463957c31509aa.png" src="../_images/6dc73c61efa21dddafaf86eda498ecbe41fb2c92f4a4e1cde4463957c31509aa.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_poisson_seaborn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/89e8e237af2c8af857641cf43341d8ed53c64d62deb0751f420832bf12035b3e.png" src="../_images/89e8e237af2c8af857641cf43341d8ed53c64d62deb0751f420832bf12035b3e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_poisson_seaborn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0ecbbf6f0891f97d226dc7e78b4d083e326f01dab1160f52fa858e1f48fc57e2.png" src="../_images/0ecbbf6f0891f97d226dc7e78b4d083e326f01dab1160f52fa858e1f48fc57e2.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="distribucion-geometrica">
+<h2>Distribucion Geometrica<a class="headerlink" href="#distribucion-geometrica" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distribucion-hipergeometrica">
+<h2>Distribucion Hipergeometrica<a class="headerlink" href="#distribucion-hipergeometrica" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distribucion-binomial-negativa">
+<h2>Distribucion Binomial negativa<a class="headerlink" href="#distribucion-binomial-negativa" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="distribuciones-de-probabilidad-continua">
+<h1>Distribuciones de probabilidad continua<a class="headerlink" href="#distribuciones-de-probabilidad-continua" title="Permalink to this heading">#</a></h1>
+<section id="distribucion-normal-gaussiana">
+<h2>Distribucion Normal (Gaussiana)<a class="headerlink" href="#distribucion-normal-gaussiana" title="Permalink to this heading">#</a></h2>
+<img src="image-20221229-153914.png" alt="drawing" style="width:600px;"/><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="nb">pow</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="n">sigma</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se define un eje X</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Se define una distribucion normal con media=0 y desv=1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Se grafica</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fe95160cca0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/1d96dbf6d61209de2108daa691d2e98501151bc565be01c15f1483bf8b2df179.png" src="../_images/1d96dbf6d61209de2108daa691d2e98501151bc565be01c15f1483bf8b2df179.png" />
+</div>
+</div>
+</section>
+<section id="distribucion-normal-de-scipy">
+<h2>Distribucion normal de scipy<a class="headerlink" href="#distribucion-normal-de-scipy" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist_norm</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist_norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fe93e071fa0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/1d96dbf6d61209de2108daa691d2e98501151bc565be01c15f1483bf8b2df179.png" src="../_images/1d96dbf6d61209de2108daa691d2e98501151bc565be01c15f1483bf8b2df179.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist_norm</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist_norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fe93dda29a0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/30c6aa0357cf2f18d945b4f6b2421501e019ad9ae29afed5ded13edd03368601.png" src="../_images/30c6aa0357cf2f18d945b4f6b2421501e019ad9ae29afed5ded13edd03368601.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;s057.xls&quot;</span><span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Normally Distributed Housefly Wing Lengths</th>
+      <th>Unnamed: 1</th>
+      <th>Unnamed: 2</th>
+      <th>Unnamed: 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sokal, R.R., and P.E.Hunter. 1955.</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>length (x.1mm)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>36</td>
+      <td>NaN</td>
+      <td>Bin</td>
+      <td>Frequency</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>37</td>
+      <td>NaN</td>
+      <td>36-38</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>52</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>53</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>53</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>54</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>55</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>103 rows × 4 columns</p>
+</div></div></div>
+</div>
+<p><em>La informacion relevate esta contenida en la columna <strong>“Normally Distributed Housefly Wing Lengths”</strong></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wingdata</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Normally Distributed Housefly Wing Lengths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Ahora, calculemos la probabilidad de cada uno de estos datos</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">values</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">wingdata</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="p">(</span><span class="n">dist</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">wingdata</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;BarContainer object of 19 artists&gt;
+</pre></div>
+</div>
+<img alt="../_images/6a0ce8197087709a48b5e417508b32f51d5e8cfaa602d8e407640ed555425e3c.png" src="../_images/6a0ce8197087709a48b5e417508b32f51d5e8cfaa602d8e407640ed555425e3c.png" />
+</div>
+</div>
+<p><em>Estimacion de la distribucion</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="n">wingdata</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">wingdata</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">norm</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">values</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">wingdata</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dist</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">wingdata</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;BarContainer object of 19 artists&gt;
+</pre></div>
+</div>
+<img alt="../_images/63bc082308b3ffa4f66b80e3b42bf86818256d1a608b802c272fd01c2feea0dc.png" src="../_images/63bc082308b3ffa4f66b80e3b42bf86818256d1a608b802c272fd01c2feea0dc.png" />
+</div>
+</div>
+</section>
+<section id="distribucion-exponencial">
+<h2>Distribucion Exponencial<a class="headerlink" href="#distribucion-exponencial" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distribucion-paretto">
+<h2>Distribucion Paretto<a class="headerlink" href="#distribucion-paretto" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distribucion-gamma">
+<h2>Distribucion Gamma<a class="headerlink" href="#distribucion-gamma" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="distribucion-beta">
+<h2>Distribucion Beta<a class="headerlink" href="#distribucion-beta" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="como-estimar-una-distribucion-de-probabilidad">
+<h1>Como estimar una distribucion de probabilidad?<a class="headerlink" href="#como-estimar-una-distribucion-de-probabilidad" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">normal</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9c8c24844f44ccebfdfac1ecf481d479cd7884d173fb4d4b7db0140494bb927e.png" src="../_images/9c8c24844f44ccebfdfac1ecf481d479cd7884d173fb4d4b7db0140494bb927e.png" />
+</div>
+</div>
+<section id="estimacion-parametrica">
+<h2>Estimacion parametrica<a class="headerlink" href="#estimacion-parametrica" title="Permalink to this heading">#</a></h2>
+<p><em><strong>Paso 1.</strong> Se genera una muestra aleatoria con distribucion normal</em></p>
+<ul class="simple">
+<li><p><em>Esto se hace con <strong>numpy.random.normal</strong></em></p></li>
+<li><p><em>En este caso la distribucion tiene media = 50 y desviacion = 5</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distrib normal con mu = 50, sigma = 5</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/baf7913689a14447405c670dd0916ae55d0b660b09f7987c41e30e552d0bbeed.png" src="../_images/baf7913689a14447405c670dd0916ae55d0b660b09f7987c41e30e552d0bbeed.png" />
+</div>
+</div>
+<p><em>Entonces supongamos que tenemos un conjunto de datos cuya distribucion y parametros no conocemos</em> 😉😉😉</p>
+<p><em><strong>Paso 2.</strong> una vez se tienen los datos simulados, se procede a ajustar una funcion con sus parametros</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calcular parametros de la muestra</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sigma</span><span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1">#generar una distribucion normal con los parametros calculados</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+<span class="c1"># Y se obtienen las probabilidades de cada dato</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">probabilidades</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Por ultimo se grafican los datos originales y la distribucion calculada para ver si se ajusta correctamente</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Density = True hace que el grafico muestre probabilidades en lugar de frecuencias</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">probabilidades</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fa0d5d05b0b3fe5edcdb1ab33470c6d8c36f466e97a3e5298a72f1078ef3af53.png" src="../_images/fa0d5d05b0b3fe5edcdb1ab33470c6d8c36f466e97a3e5298a72f1078ef3af53.png" />
+</div>
+</div>
+</section>
+<section id="estimacion-no-parametrica">
+<h2>Estimacion no parametrica<a class="headerlink" href="#estimacion-no-parametrica" title="Permalink to this heading">#</a></h2>
+<p><em>Este proceso se aplica cuando los datos no se ajustan a una distribución conocida, Por lo cual no se pueden forzar a los datos a ajustarse a una unica distribucion</em></p>
+<p><em>Se genera aleatoriamente un dataset con distribucion bimodal</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">sample1</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">sample2</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">sample1</span><span class="p">,</span> <span class="n">sample2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c381ed492185fada695e11b291ea0f4cec2a859f9e38373077a5f83fd473226f.png" src="../_images/c381ed492185fada695e11b291ea0f4cec2a859f9e38373077a5f83fd473226f.png" />
+</div>
+</div>
+<p><em>Se aplica el metodo de <strong>Kernel Density Estimation(KDE)</strong></em></p>
+<p>*una vez se tienen los datos simulados, comienza el proceso de estimación:</p>
+<ul class="simple">
+<li><p><em>1. Se crea un objeto modelo, con parámetros bandwidth= (parámetro de suavizado) y kernel= (funciones de distribución que se usan para la estimación).</em></p></li>
+<li><p><em>2. Una vez creado el objeto, se ajustan los datos a las necesidades del objeto, para esto se utiliza el método reshape, para ordenar en una matriz de 1000 filas y 1 columna y luego se ajusta el modelo a estos datos:</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">KernelDensity</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KernelDensity(bandwidth=2)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">KernelDensity</label><div class="sk-toggleable__content"><pre>KernelDensity(bandwidth=2)</pre></div></div></div></div></div></div></div>
+</div>
+<p><em>Ahora se ajusta el modelo (o la distribucion que queremos predecir) a los datos, como si se estuviese calculando la media y la desviacion estandar de una distribución normal, pero nos faltan calcular los promedios de cada Kernel para darle forma a la función teórica. Esto es lo que hacemos a continuación:</em></p>
+<ul class="simple">
+<li><p><em>se crea un eje x en el rango obetenido, luego calculamos las probabilidades.</em></p></li>
+<li><p><em>Aclaración: la probabilidad sale en forma logarítimica(por cuestiones de eficiencia), Luego a través de función exponencial se revierte este efecto.</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="c1"># probabilidad logaritmica (computacionalmente mas barato)</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span> <span class="c1"># se regresa a las probabilidades originales</span>
+
+<span class="c1"># Datos originales</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Curva ajustada</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7c4c7f3b40a13cbd55cecf3f135f8e22d03ab296964c9244f1ae691acb2a8b60.png" src="../_images/7c4c7f3b40a13cbd55cecf3f135f8e22d03ab296964c9244f1ae691acb2a8b60.png" />
+</div>
+</div>
+</section>
+<section id="maximum-likelihood-estimation-mle">
+<h2>Maximum Likelihood Estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>Escoger una distribucion</p></li>
+<li><p>Escoger los parametros de la distribucion</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">likelihood</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">yp</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">yp</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">yp</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="c1">#ax = fig.gca(projection=&quot;3d&quot;)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">YP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">Y</span><span class="p">,</span> <span class="n">YP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">YP</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">likelihood</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">YP</span><span class="p">)</span>
+
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">YP</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">shrink</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/92dc96e5bd39cf11c97534be013c1da7b59e842402bd16fde1db69d9d55d3a3e.png" src="../_images/92dc96e5bd39cf11c97534be013c1da7b59e842402bd16fde1db69d9d55d3a3e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">atrib_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[5.1, 3.5, 1.4, 0.2],
+       [4.9, 3. , 1.4, 0.2]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Revisamos los parametros resultantes <span class="math notranslate nohighlight">\(\beta_{1}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.40247392, -1.46382925,  2.23785648,  1.00009294]])
+</pre></div>
+</div>
+</div>
+</div>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=d513e9b5-dbb0-4a42-95c1-6aa9a996ed5d' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./6-2-Probabilidad"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../6-1-Algebra-Lineal-aplicada-a-Machine-Learning/contenido.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../6-3-Inferential-Statistics-and-Sampling/Notebook%201.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Inferential Statistics &amp; Sampling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Distribuciones de Probabilidad</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuentes-de-incertidumbre-en-ml">Fuentes de incertidumbre en ML</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribuciones-de-probabilidad-discretas">Distribuciones de probabilidad discretas</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-bernoulli">Distribucion de Bernoulli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial">Distribucion Binomial</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#frac-3-8">= <span class="math notranslate nohighlight">\(\frac{3}{8}\)</span></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-en-python">Distribucion Binomial en Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-de-scipy">Distribucion binomial de scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulando-la-distribucion-binomial-con-numpy">Simulando la Distribucion Binomial Con Numpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-multinomial">Distribucion Multinomial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-poisson">Distribucion de Poisson</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos">Supuestos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-poisson-scipy">Distribucion de Poisson Scipy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulando-la-distribucion-de-poisson-con-numpy">Simulando la Distribucion de Poisson con Numpy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-geometrica">Distribucion Geometrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-hipergeometrica">Distribucion Hipergeometrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-binomial-negativa">Distribucion Binomial negativa</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribuciones-de-probabilidad-continua">Distribuciones de probabilidad continua</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-normal-gaussiana">Distribucion Normal (Gaussiana)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-normal-de-scipy">Distribucion normal de scipy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-exponencial">Distribucion Exponencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-paretto">Distribucion Paretto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-gamma">Distribucion Gamma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-beta">Distribucion Beta</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-estimar-una-distribucion-de-probabilidad">Como estimar una distribucion de probabilidad?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-parametrica">Estimacion parametrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-no-parametrica">Estimacion no parametrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">Maximum Likelihood Estimation (MLE)</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
