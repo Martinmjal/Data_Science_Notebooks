@@ -1,11 +1,10 @@
-# Welcome to your Jupyter Book
+# Welcome to my learning path!
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+If you've reached this page, thank you for taking the time to read the content I've created while learning data science. I also hope you enjoy it as much as I did. Please feel free to extract the CSV files from  [My github repository](https://github.com/Martinmjal/Data_Science_Notebooks) from which I generated this book.
 
-Check out the content pages bundled with this sample book to see more.
+Furthermore, if you have any comments or suggestions, please don't hesitate to share them with me via my [Linkedin Profile](https://www.linkedin.com/in/martinalvarez2000/).
+
+Let's get started:
 
 ```{tableofcontents}
 ```
